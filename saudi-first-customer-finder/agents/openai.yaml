@@ -1,0 +1,4 @@
+interface:
+  display_name: "Saudi First Customer Finder"
+  short_description: "Paste a link, get verified Saudi customers from public Arabic signals"
+  default_prompt: "Use $saudi-first-customer-finder on this app: [paste URL]"
