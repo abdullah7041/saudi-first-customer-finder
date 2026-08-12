@@ -43,30 +43,37 @@ and the trust objections that will kill your conversion — all quoted.
 
 ## Install
 
-```bash
-# Codex (default)
-npx --yes saudi-first-customer-finder-skill@latest
-
-# Claude Code / Claude agents
-npx --yes saudi-first-customer-finder-skill@latest --agent claude
-
-# Both
-npx --yes saudi-first-customer-finder-skill@latest --agent both
-
-# Project-local
-npx --yes saudi-first-customer-finder-skill@latest --skills-dir ./.claude/skills
-```
-
-Installs to `~/.codex/skills/saudi-first-customer-finder` or
-`~/.claude/skills/saudi-first-customer-finder`. Restart your agent afterwards.
-
-### Manual install
+Clone, then run the installer. Node 16+ is the only requirement, and it works the same
+on macOS, Linux, and Windows.
 
 ```bash
-git clone https://github.com/USERNAME/saudi-first-customer-finder-skill.git
-mkdir -p ~/.codex/skills
-cp -R saudi-first-customer-finder-skill/saudi-first-customer-finder ~/.codex/skills/
+git clone https://github.com/abdullah7041/saudi-first-customer-finder.git
+cd saudi-first-customer-finder
+node scripts/install.js
 ```
+
+That installs to `~/.claude/skills/saudi-first-customer-finder`. Other targets:
+
+```bash
+node scripts/install.js --agent codex             # ~/.codex/skills
+node scripts/install.js --agent agents            # ~/.agents/skills (Codex, Copilot CLI, Gemini CLI)
+node scripts/install.js --agent both              # claude + codex
+node scripts/install.js --skills-dir ./.claude/skills   # project-local
+node scripts/install.js --link                    # link the checkout instead of copying
+```
+
+`--link` is for editing the skill: the installed path points back at your clone, so
+changes take effect on the next agent restart with no reinstall. On Windows it creates a
+directory junction, which needs no administrator rights.
+
+**Restart your agent afterwards.** Skills are read at startup; the skill will not appear
+in a session that was already running.
+
+The generated HTML report needs **Python 3.10+** on your PATH. Everything else in the
+skill is plain markdown.
+
+> Not on npm yet — the `npx saudi-first-customer-finder-skill` route will work only once
+> the package is published.
 
 ## Usage
 
@@ -98,6 +105,7 @@ public timing triggers and the decision roles associated with them.
 
 | Mode | Prospects | Min queries | Use for |
 | --- | --- | --- | --- |
+| `fit-check` | none | 3 | Pre-flight only — is this category even searchable |
 | `quick` | 5 | 20 | Fast sanity check |
 | `standard` | 10 | 35 | Balanced run |
 | `deep` | 20+ | 60 | **Default.** Full dialect fan-out and pattern analysis |
@@ -179,13 +187,14 @@ saudi-first-customer-finder-skill/
 │   ├── SKILL.md
 │   ├── agents/openai.yaml
 │   ├── references/
+│   │   ├── fit-check.md                     Pre-flight category screen
 │   │   ├── arabic-query-lexicon.md          Saudi dialect search vocabulary
 │   │   ├── saudi-identity-verification.md   Dialect markers and rejection rules
 │   │   ├── platform-playbooks.md            X, Reddit, LinkedIn tactics
 │   │   ├── research-framework.md            Scoring, gates, product intelligence
 │   │   └── report-artifact.md               JSON schema
 │   └── scripts/generate_report.py           Bilingual RTL HTML generator
-├── scripts/install.js
+├── scripts/install.js                          Cross-platform installer
 ├── package.json
 ├── LICENSE
 └── README.md

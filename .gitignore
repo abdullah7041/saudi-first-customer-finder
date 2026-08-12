@@ -4,3 +4,5 @@ outputs/
 .DS_Store
 analysis.json
 *.local.json
+__pycache__/
+*.pyc

@@ -5,11 +5,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/USERNAME/saudi-first-customer-finder-skill.git"
+    "url": "git+https://github.com/abdullah7041/saudi-first-customer-finder.git"
   },
-  "homepage": "https://github.com/USERNAME/saudi-first-customer-finder-skill#readme",
+  "homepage": "https://github.com/abdullah7041/saudi-first-customer-finder#readme",
   "bugs": {
-    "url": "https://github.com/USERNAME/saudi-first-customer-finder-skill/issues"
+    "url": "https://github.com/abdullah7041/saudi-first-customer-finder/issues"
   },
   "bin": {
     "saudi-first-customer-finder-skill": "scripts/install.js"

@@ -1,6 +1,6 @@
 ---
 name: saudi-first-customer-finder
-description: Find and qualify evidence-backed potential first customers inside Saudi Arabia using public Arabic and English signals from X, Reddit, and LinkedIn. Use when an agent needs to analyze a product URL or idea for the Saudi market, define a Saudi ideal customer profile, search Saudi-dialect Arabic demand and pain signals, verify that a prospect is actually Saudi rather than expat or other-Gulf, rank fit and timing, extract the Arabic vocabulary customers use for the problem, surface product gaps and trust objections, and produce a bilingual evidence-backed report without sending any outreach.
+description: Use when someone gives a product URL or idea and wants first customers, early adopters, demand validation, or customer research inside Saudi Arabia (KSA) — including defining a Saudi ICP, finding Saudi-dialect Arabic pain or demand signals on X, Reddit or LinkedIn, checking whether a prospect is actually Saudi rather than expat or other-Gulf, or sourcing Arabic landing-page vocabulary from real Saudi users.
 ---
 
 # Saudi First Customer Finder
@@ -222,11 +222,24 @@ Order:
 Build a standalone bilingual HTML report unless the user explicitly asks for chat only:
 
 1. Write the JSON described in `references/report-artifact.md`.
-2. Run `python3 scripts/generate_report.py <analysis.json> <report.html>`.
-3. Save into the workspace `outputs/` directory.
-4. Open the result and verify: Arabic renders right-to-left, every source link is
+2. Run the generator **by its absolute path inside this skill directory** — the working
+   directory is the user's workspace, not the skill, so a relative `scripts/...` path
+   will not resolve:
+
+   ```
+   <skill-dir>/scripts/generate_report.py <analysis.json> <outputs/report.html>
+   ```
+
+   `<skill-dir>` is the directory this SKILL.md lives in — typically
+   `~/.claude/skills/saudi-first-customer-finder` or
+   `~/.codex/skills/saudi-first-customer-finder`. Invoke it with `python3`, falling back
+   to `python` on Windows where `python3` is often absent. Python 3.10 or newer.
+3. The generator creates the output directory itself; target the workspace `outputs/`.
+4. Read the warnings it prints — unverified links, an empty rejection log, and missing
+   Arabic verbatims are all reported on stderr/stdout and all block shipping.
+5. Open the result and verify: Arabic renders right-to-left, every source link is
    present, the rejection log is populated, and no score is a placeholder.
-5. Return a clickable absolute file link.
+6. Return a clickable absolute file link.
 
 ## Modes
 
