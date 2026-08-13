@@ -43,28 +43,28 @@ and the trust objections that will kill your conversion — all quoted.
 
 ## Install
 
-Clone, then run the installer. Node 16+ is the only requirement, and it works the same
-on macOS, Linux, and Windows.
+One command, no clone, no config. Requires Node 16+; works the same on macOS, Linux, and
+Windows.
 
 ```bash
-git clone https://github.com/abdullah7041/saudi-first-customer-finder.git
-cd saudi-first-customer-finder
-node scripts/install.js
+npx --yes saudi-first-customer-finder-skill@1.0.0
 ```
 
 That installs to `~/.claude/skills/saudi-first-customer-finder`. Other targets:
 
 ```bash
-node scripts/install.js --agent codex             # ~/.codex/skills
-node scripts/install.js --agent agents            # ~/.agents/skills (Codex, Copilot CLI, Gemini CLI)
-node scripts/install.js --agent both              # claude + codex
-node scripts/install.js --skills-dir ./.claude/skills   # project-local
-node scripts/install.js --link                    # link the checkout instead of copying
-```
+# Codex
+npx --yes saudi-first-customer-finder-skill@1.0.0 --agent codex
 
-`--link` is for editing the skill: the installed path points back at your clone, so
-changes take effect on the next agent restart with no reinstall. On Windows it creates a
-directory junction, which needs no administrator rights.
+# ~/.agents/skills — also read by Codex, Copilot CLI and Gemini CLI
+npx --yes saudi-first-customer-finder-skill@1.0.0 --agent agents
+
+# Claude + Codex
+npx --yes saudi-first-customer-finder-skill@1.0.0 --agent both
+
+# Project-local, checked in with the repo
+npx --yes saudi-first-customer-finder-skill@1.0.0 --skills-dir ./.claude/skills
+```
 
 **Restart your agent afterwards.** Skills are read at startup; the skill will not appear
 in a session that was already running.
@@ -72,8 +72,20 @@ in a session that was already running.
 The generated HTML report needs **Python 3.10+** on your PATH. Everything else in the
 skill is plain markdown.
 
-> Not on npm yet — the `npx saudi-first-customer-finder-skill` route will work only once
-> the package is published.
+### From a clone
+
+Works without npm, and is the route to take if you want to edit the skill.
+
+```bash
+git clone https://github.com/abdullah7041/saudi-first-customer-finder.git
+cd saudi-first-customer-finder
+node scripts/install.js          # same flags as above
+node scripts/install.js --link   # link the checkout instead of copying
+```
+
+`--link` points the installed path back at your clone, so edits take effect on the next
+agent restart with no reinstall. On Windows it creates a directory junction, which needs
+no administrator rights.
 
 ## Usage
 
