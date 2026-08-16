@@ -56,17 +56,25 @@ the demand is not written down in public, or the people who have it must not be 
 Finding that out after sixty queries wastes an hour.
 
 Run `references/fit-check.md` first, every time. It screens the category against a
-do-not-target table, fires exactly three probe queries, and returns green, amber, or red.
+do-not-target table, fires one control query and three probe queries, and returns green,
+amber, red, or path-b blind.
 
 - **Green** — run `deep` as designed.
 - **Amber** — run `deep`, but say up front that the shortlist will be short.
 - **Red** — do not run the prospecting pass. Switch to `research-only`, deliver the
   product-intelligence half, and explain why the signal is not visible.
+- **Path-B blind** — the search path cannot return posts from the platform at all. Issue
+  no market verdict. Say which platform is unreachable and hand the user the routes.
+
+The control query runs **before** the probes and is not optional. A red verdict from a
+search path that cannot see the platform is a claim about the market that was never
+measured — and it points the user at the opposite decision from the true one.
 
 State the verdict in six lines or fewer, then continue without waiting for permission
-unless the verdict is red. On red, stop and let the user choose.
+unless the verdict is red or blind. On either, stop and let the user choose.
 
-Three queries is the budget. If the check grows past that, it has become the run.
+Four queries is the budget — one control, three probes. If the check grows past that, it
+has become the run.
 
 ### 1. Build the Saudi product brief — from the URL alone
 
@@ -245,7 +253,7 @@ Build a standalone bilingual HTML report unless the user explicitly asks for cha
 
 | Mode | Prospects | Minimum queries | Notes |
 | --- | --- | --- | --- |
-| `fit-check` | none | 3 | The pre-flight check on its own. Answers "is this category even searchable" in about a minute |
+| `fit-check` | none | 4 | The pre-flight check on its own — one control plus three probes. Answers "is this category even searchable, and can I even see the platform" in about a minute |
 | `quick` | up to 5 | 20 | Sanity check or re-run against an existing baseline |
 | `standard` | up to 10 | 35 | Balanced run across all three platforms |
 | `deep` | 20+ | 60 | **Default.** Full dialect variation, full pattern and product-intelligence analysis |

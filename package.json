@@ -1,6 +1,6 @@
 {
   "name": "saudi-first-customer-finder-skill",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An AI coding-agent skill that finds evidence-backed potential first customers inside Saudi Arabia from public Arabic and English signals on X, Reddit, and LinkedIn.",
   "license": "MIT",
   "repository": {

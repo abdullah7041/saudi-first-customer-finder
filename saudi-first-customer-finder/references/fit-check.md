@@ -31,7 +31,42 @@ safer and, for a sensitive product, usually the more useful half anyway.
 
 Say plainly which rule was applied and why. Never silently downgrade the run.
 
-## Step 2 — Three probe queries
+## Step 2 — Control query, before any probe
+
+**REQUIRED. Run this first, every time.** It measures the tool, not the market.
+
+Fire one Arabic first-person query with no category noun at all — something the platform
+is certainly full of, on any topic:
+
+```
+site:x.com ("والله تعبت" OR "قهر" OR "ما توقعت") lang:ar
+```
+
+Count a result only if **all four** hold. Anything else scores zero:
+
+1. It is a permalink to a single post (`/status/<id>`), not a profile, search, or landing
+   page. A profile whose *username* happens to contain the phrase is not a hit.
+2. The post text is visible, and the phrase is in the text — not only in the URL slug.
+3. Someone is describing their own situation. Not poetry, quotes, lyrics, or reposted
+   aphorisms, all of which the general indexes carry in bulk and X users repost forever.
+4. Posted within the last 24 months.
+
+| Qualifying posts | Meaning | Action |
+| --- | --- | --- |
+| 3 or more | The search path can see the corpus | Continue to Step 3 |
+| 0–2 | The search path is blind to the platform | Stop. Verdict is **PATH-B BLIND**, not red |
+
+Two is blind, not borderline. A path that surfaces one decade-old poem for a phrase the
+platform contains millions of times is matching URLs and page titles, not post text, and
+it will return zero for any narrower query no matter how loud the real demand is.
+
+A search path that cannot return first-person posts on a topic the platform is saturated
+with cannot produce evidence of absence for a narrower one. Reporting red from a blind
+path states a fact about the market that was never measured.
+
+Budget: one control plus three probes. Four queries total.
+
+## Step 3 — Three probe queries
 
 One query per bucket, in Saudi Arabic, on X. Do not run more than three. Do not fix a
 disappointing probe by adding a fourth — the point is a fast read, and a category that
@@ -47,7 +82,7 @@ needs six queries to show one signal is already telling you the answer.
 If the product has no obvious Arabic category noun, that is itself a signal — note it and
 lean toward amber at best.
 
-## Step 3 — Count three things
+## Step 4 — Count three things
 
 For each probe, count only what a full run would actually keep:
 
@@ -64,8 +99,13 @@ Then apply:
 | **Amber** | 2–5 hits, or every hit older than three months, or vendor ratio above 60% | Run `deep`, but say up front that the shortlist will be short. Consider widening the date window before widening the geography |
 | **Red** | 0–1 hits, or vendor ratio above 80%, or all three probes return only ads and unrelated stemming noise | Do not run the full prospecting pass. Switch to `research-only` and explain the finding |
 
+**Red requires a control that passed.** If the control in Step 2 came back blind, the
+verdict is `PATH-B BLIND` no matter what the probes returned. Red says the market is
+quiet; blind says you could not hear it. They lead the user to opposite decisions —
+abandon the category, versus get a session and look properly.
+
 When the result sits between two bands, take the lower one. Optimism here costs the user
-an hour.
+an hour. Blind is not a band — it replaces the verdict entirely.
 
 ### Counting the vendor ratio honestly
 
@@ -99,19 +139,52 @@ strong prospect, a wall of WhatsApp CV services, and a free circulating ChatGPT 
 as the real incumbent. The check reached the same conclusion in three queries. That is
 the entire point of it.
 
-## Step 4 — State the verdict before proceeding
+### Field test — why the control exists
+
+Run on 2026-08-16 against a Saudi resume-matching product, on a harness whose only web
+search was a general index with `site:x.com`:
+
+```
+Probes, noun-framed:     demand 0 · pain 0 · workaround 0
+Probes, symptom-framed:  demand 0 · pain 0 · workaround 0
+Returned instead:        blogs, Quora, Iraqi Facebook pages, TikTok discover pages
+```
+
+Six probes, two framings, zero first-person posts — while the same index returned plenty
+of *other* Arabic job-seeking content. The check reported RED twice. That was wrong: X is
+saturated with Saudi job-seeking complaints, and the run had simply established that the
+search path could not return X post text at all.
+
+The control was then run on the same harness, on a phrase X contains millions of times.
+It returned one 2024 poem and one profile page whose username *was* the search phrase —
+which is why the scoring rules above are a count of qualifying permalinks rather than an
+impression. Two loose matches read as "the path works." They do not.
+
+RED told the user their market was silent. The truth was that the microphone was off.
+Hence Step 2: one query would have caught it before the probes ran.
+
+## Step 5 — State the verdict before proceeding
 
 Report it in this shape, in six lines or fewer, then continue without waiting for
-permission unless the verdict is red:
+permission unless the verdict is red or blind:
 
 ```
 Fit check — [product], Saudi market
 Category screen:  proceed | prospecting off ([rule])
+Control:          passed (N first-person posts) | BLIND (no platform posts returned)
 Probes:           demand N · pain N · workaround N first-person Saudi hits
 Vendor ratio:     N%
 Freshest signal:  N days
-Verdict:          GREEN — running deep | AMBER — running deep, expect a short list | RED — switching to research-only
+Verdict:          GREEN — running deep | AMBER — running deep, expect a short list | RED — switching to research-only | PATH-B BLIND — need a session
 ```
+
+On **PATH-B BLIND**, do not issue a market verdict at all. Say that the search path
+cannot see the platform, name which one, and hand the user the three routes: a logged-in
+session (Path A), `research-only` on sources the path *can* reach, or a different
+platform where the audience actually writes in public text.
+
+Never soften blind into red, and never let a blind run's zero counts appear as evidence
+about the market. If the counts are reported at all, mark them unmeasured.
 
 On red, stop and hand the user the choice: research-only now, a different Arabic framing
 of the category, or a widened scope. Do not burn an hour proving a red verdict right.

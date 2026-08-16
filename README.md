@@ -117,7 +117,7 @@ public timing triggers and the decision roles associated with them.
 
 | Mode | Prospects | Min queries | Use for |
 | --- | --- | --- | --- |
-| `fit-check` | none | 3 | Pre-flight only — is this category even searchable |
+| `fit-check` | none | 4 | Pre-flight only — is this category even searchable, and is the platform even reachable |
 | `quick` | 5 | 20 | Fast sanity check |
 | `standard` | 10 | 35 | Balanced run |
 | `deep` | 20+ | 60 | **Default.** Full dialect fan-out and pattern analysis |
