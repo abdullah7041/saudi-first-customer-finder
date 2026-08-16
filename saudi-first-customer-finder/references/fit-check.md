@@ -54,11 +54,14 @@ Count a result only if **all four** hold. Anything else scores zero:
 | Qualifying posts | Meaning | Action |
 | --- | --- | --- |
 | 3 or more | The search path can see the corpus | Continue to Step 3 |
-| 0–2 | The search path is blind to the platform | Stop. Verdict is **PATH-B BLIND**, not red |
+| 0–2 | The search path cannot reach recent posts | Stop. Verdict is **PATH-B BLIND**, not red |
 
-Two is blind, not borderline. A path that surfaces one decade-old poem for a phrase the
-platform contains millions of times is matching URLs and page titles, not post text, and
-it will return zero for any narrower query no matter how loud the real demand is.
+Two is blind, not borderline. Note what the failure usually looks like: not an empty
+result, but three real permalinks that are all years old and all high-engagement. A
+general index carries the viral back-catalogue and misses this month entirely. Demand
+signals are recent, narrow, and low-engagement — the exact slice such a path cannot
+return. Report it as *cannot reach recent posts*, not *cannot see the platform*: the
+distinction tells the user their next move is a session, not a different platform.
 
 A search path that cannot return first-person posts on a topic the platform is saturated
 with cannot produce evidence of absence for a narrower one. Reporting red from a blind
@@ -179,12 +182,36 @@ Verdict:          GREEN — running deep | AMBER — running deep, expect a shor
 ```
 
 On **PATH-B BLIND**, do not issue a market verdict at all. Say that the search path
-cannot see the platform, name which one, and hand the user the three routes: a logged-in
-session (Path A), `research-only` on sources the path *can* reach, or a different
+cannot reach recent posts, name the platform, and hand the user the three routes: a
+logged-in session (Path A), `research-only` over the source ladder below, or a different
 platform where the audience actually writes in public text.
 
 Never soften blind into red, and never let a blind run's zero counts appear as evidence
 about the market. If the counts are reported at all, mark them unmeasured.
+
+## The source ladder — what to run when the platform is unreachable
+
+`research-only` is the escape hatch from a red or blind verdict, so it needs to be a
+procedure rather than a word. Work the ladder in order. Each rung says what it reliably
+yields, because none of them yield prospects — they yield the product-intelligence half.
+
+| Rung | Source | Reliably yields |
+| --- | --- | --- |
+| 1 | Arabic app-store reviews of the incumbents — Apple App Store `?l=ar`, Google Play `&hl=ar` | Trust objections and feature gaps, first-person, dated, and fully public |
+| 2 | Competitor landing pages found by category keyword in Arabic | Price anchor, positioning vocabulary, what the market already promises |
+| 3 | Saudi government and semi-government services in the category | The free incumbent — the one that decides whether anyone pays at all |
+| 4 | Saudi vertical platforms and their content marketing (job boards, marketplaces, sector portals) | The formal Arabic vocabulary, and which pains are common enough to write SEO about |
+| 5 | TikTok and YouTube titles, comments, and Discover pages in Arabic | Where the audience actually is when it is not on X. Titles are searchable even when the discussion is not |
+| 6 | Reddit KSA subs and Arabic forums | Long-form written pain — remembering the expat skew from the playbooks |
+
+Two rules. Rung 3 is not optional in any category a Saudi government platform touches:
+a free official option resets the whole price question, and a report that misses it
+recommends a price the market will never pay. And a rung that yields nothing is a
+finding — record it, because "the incumbents have no Arabic reviews" says something
+about the category.
+
+Individuals surfaced on these rungs are **not** prospects. No shortlist, no scoring, no
+openers. A blind run has not verified anyone's identity and cannot start now.
 
 On red, stop and hand the user the choice: research-only now, a different Arabic framing
 of the category, or a widened scope. Do not burn an hour proving a red verdict right.

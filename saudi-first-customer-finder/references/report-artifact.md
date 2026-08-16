@@ -86,11 +86,9 @@ Open the HTML and confirm:
 
   "rejected": [
     {
-      "name": "public handle",
       "platform": "Reddit",
       "tier": "rejected",
       "reason": "Egyptian dialect markers (عايز، مش، ازاي) with no KSA context signal",
-      "source_url": "https://www.reddit.com/r/example/comments/abc/",
       "note": "Pain signal is real and counted in product intelligence, but out of Saudi scope."
     }
   ],
@@ -197,6 +195,14 @@ Open the HTML and confirm:
   mode.
 - `rejected` must not be empty on a real run. If nothing was rejected, the identity
   filter did not run.
+- `rejected` entries carry **no `name`, no `source_url`, and no quote**. A count proves
+  the filter ran; a handle printed beside an inferred nationality is a sensitive claim
+  about a real person, in a document built to be shared. The generator aggregates the
+  array to reason × platform counts and cannot render an identifier even if one is
+  present, so writing handles here does not leak — it is simply wasted work.
+- `quote_ar` on a prospect is one or two sentences. The generator truncates anything
+  over 280 characters: past that the report has stopped quoting evidence and started
+  republishing the post.
 - Counts in `patterns` and `product_intelligence` are counts of observed independent
   signals. Never estimated, never rounded up.
 - `type` on a feature gap is `build` (product does not do it) or `message` (product does

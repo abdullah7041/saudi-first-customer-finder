@@ -29,9 +29,10 @@ lexicon of Saudi demand, pain, workaround, switching, and trigger vocabulary —
 spelling variants Saudis actually type.
 
 **It proves the person is Saudi.** Every candidate passes a dialect + location + civic
-context check. Egyptian, Levantine, Iraqi, and other-Gulf markers are disqualifying.
-Every rejection is logged with a neutral reason, and the log ships in the report — because
-a filter you cannot see is a filter that never ran.
+context check. Egyptian, Levantine, Iraqi, and other-Gulf markers are disqualifying. The
+report ships the rejection log **as counts by reason** — enough to prove the filter ran,
+because a filter you cannot see is a filter that never ran, and never enough to publish
+someone's handle beside an inferred nationality.
 
 **It verifies every link.** Sources are re-opened and re-read before the report is
 written. If a post was deleted or the quote is not on the page, the prospect is dropped
@@ -47,23 +48,23 @@ One command, no clone, no config. Requires Node 16+; works the same on macOS, Li
 Windows.
 
 ```bash
-npx --yes saudi-first-customer-finder-skill@1.0.0
+npx --yes saudi-first-customer-finder-skill@1.1.0
 ```
 
 That installs to `~/.claude/skills/saudi-first-customer-finder`. Other targets:
 
 ```bash
 # Codex
-npx --yes saudi-first-customer-finder-skill@1.0.0 --agent codex
+npx --yes saudi-first-customer-finder-skill@1.1.0 --agent codex
 
 # ~/.agents/skills — also read by Codex, Copilot CLI and Gemini CLI
-npx --yes saudi-first-customer-finder-skill@1.0.0 --agent agents
+npx --yes saudi-first-customer-finder-skill@1.1.0 --agent agents
 
 # Claude + Codex
-npx --yes saudi-first-customer-finder-skill@1.0.0 --agent both
+npx --yes saudi-first-customer-finder-skill@1.1.0 --agent both
 
 # Project-local, checked in with the repo
-npx --yes saudi-first-customer-finder-skill@1.0.0 --skills-dir ./.claude/skills
+npx --yes saudi-first-customer-finder-skill@1.1.0 --skills-dir ./.claude/skills
 ```
 
 **Restart your agent afterwards.** Skills are read at startup; the skill will not appear
@@ -121,7 +122,7 @@ public timing triggers and the decision roles associated with them.
 | `quick` | 5 | 20 | Fast sanity check |
 | `standard` | 10 | 35 | Balanced run |
 | `deep` | 20+ | 60 | **Default.** Full dialect fan-out and pattern analysis |
-| `research-only` | 20+ | 60 | Product validation, no outreach drafts |
+| `research-only` | none | 60 | Product intelligence only — no shortlist, no individuals named |
 | `b2b` | 12 | 40 | Saudi companies and business triggers |
 | `consumer` | 20+ | 60 | Individuals only, X-weighted |
 
@@ -133,7 +134,7 @@ public timing triggers and the decision roles associated with them.
 4. Audit strip — candidates examined, rejected on identity, dropped at link verification
 5. Top prospect
 6. Prospect shortlist — Arabic verbatim, English translation, verified link, six-dimension score, identity tier
-7. **Rejection log** — who was excluded and why
+7. **Rejection log** — counts by reason and platform, no identities
 8. Repeated patterns
 9. **Competitive landscape** — who already sells to this customer, how they take orders, what they charge
 10. **Feature gaps** — build vs. message, ranked by count
@@ -172,6 +173,13 @@ Two paths, both within platform rules:
   and real LinkedIn results. Used like a human would use them.
 - **Path B** — public web search with `site:` operators. No credentials, shallower,
   and the report says so.
+- **Path C** — the source ladder, when A and B both fail: Arabic app-store reviews,
+  competitor pages, the free government incumbent, vertical platforms, TikTok/YouTube
+  titles, forums. Yields product intelligence, never prospects.
+
+A pre-flight control query decides between them. If the search path cannot return recent
+posts from the platform, the run reports `PATH-B BLIND` and stops — rather than reporting
+"no Saudi demand", which is the same output for a very different reason.
 
 No login-wall bypassing, no paywall circumvention, no rate-limit evasion, no scraping
 against a site's terms, no data brokers, no leaked datasets, no private groups, no
@@ -184,8 +192,11 @@ personal email or phone enrichment.
 - The skill drafts openers. It never sends, replies, follows, connects, comments, or
   writes to a CRM.
 - Saudi-identity verification is a **market-scope filter** applied to public
-  self-description. It is never a judgment about any person, and rejection reasons are
-  recorded neutrally.
+  self-description. It is never a judgment about any person. Rejections ship as counts
+  by reason — no handle, no link, no quote — because a name printed beside an inferred
+  nationality is a claim about a person no matter how neutral the wording around it.
+- Quoted verbatims are capped at 280 characters. Past that the report has stopped
+  citing evidence and started republishing someone's post.
 - No targeting or inference on tribe, sect, religion, health, financial hardship,
   political view, or nationality as a slur.
 - Public professional information only. A person's title and public posts are evidence;

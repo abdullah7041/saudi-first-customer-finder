@@ -138,8 +138,13 @@ Apply `references/saudi-identity-verification.md` to every candidate.
 - **Likely Saudi**: one strong signal, zero contradictions.
 - **Rejected**: any disqualifying dialect or context marker, or no Saudi signal at all.
 
-Record every rejection with its reason. The rejection log ships in the report. A report
-with no rejection log is not trustworthy — it means the filter never ran.
+Record every rejection with its reason and platform, and **no identifier** — no handle,
+no display name, no link, no quote. The log ships as counts by reason. A report with no
+rejection log is not trustworthy, because it means the filter never ran; a report that
+names the people it rejected is worse, because it publishes an inferred nationality
+attached to a real person. The count carries the whole evidentiary load.
+
+Their pain still counts in product intelligence. It is the identity that does not ship.
 
 Score `saudi_authenticity` below 3 is an automatic exclusion from the primary shortlist,
 regardless of how strong the pain signal is.
@@ -257,7 +262,7 @@ Build a standalone bilingual HTML report unless the user explicitly asks for cha
 | `quick` | up to 5 | 20 | Sanity check or re-run against an existing baseline |
 | `standard` | up to 10 | 35 | Balanced run across all three platforms |
 | `deep` | 20+ | 60 | **Default.** Full dialect variation, full pattern and product-intelligence analysis |
-| `research-only` | 20+ | 60 | Deep, with openers removed. For product validation rather than outreach |
+| `research-only` | none | 60 | Product intelligence without a shortlist. Openers removed, no individuals named. Where a red or blind fit check lands — run the source ladder in `references/fit-check.md` |
 | `b2b` | up to 12 | 40 | Saudi companies and public business triggers; LinkedIn-weighted |
 | `consumer` | 20+ | 60 | Individuals only; X-weighted, dialect-heavy |
 

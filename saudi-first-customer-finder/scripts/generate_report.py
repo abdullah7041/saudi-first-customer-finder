@@ -103,10 +103,17 @@ def tier_badge(tier: Any) -> str:
     return f'<span class="tier {cls}">{label}</span>'
 
 
+# One or two sentences is enough to prove a signal. Past that the report stops being
+# evidence and starts republishing someone's post in full.
+QUOTE_CEILING = 280
+
+
 def arabic(text: Any, label: str = "Original Arabic") -> str:
     value = str(text or "").strip()
     if not value:
         return ""
+    if len(value) > QUOTE_CEILING:
+        value = value[:QUOTE_CEILING].rstrip() + " […]"
     return (
         f'<div class="ar-block"><span>{esc(label)}</span>'
         f'<p dir="rtl" lang="ar">{esc(value)}</p></div>'
@@ -207,17 +214,30 @@ def render_prospect(prospect: dict[str, Any], index: int) -> str:
     </article>"""
 
 
-def render_rejected(entry: dict[str, Any]) -> str:
-    source = safe_url(entry.get("source_url"))
-    link = f'<a href="{source}" target="_blank" rel="noreferrer">source &#8599;</a>' if source != "#" else ""
-    note = esc(entry.get("note", ""))
+def aggregate_rejected(entries: list[dict[str, Any]]) -> list[tuple[str, str, int]]:
+    """Collapse the rejection log to reason x platform counts.
+
+    The log exists to prove the identity filter ran, and a count proves that. Naming
+    the individuals does not: a handle published beside an inferred nationality and the
+    word "rejected" is a sensitive inference about a real person, in an artifact built
+    to be shared. Aggregation happens here rather than upstream so that a handle written
+    into the JSON still cannot reach the page.
+    """
+    counts: dict[tuple[str, str], int] = {}
+    for entry in entries:
+        reason = str(entry.get("reason") or "No reason recorded").strip()
+        platform = str(entry.get("platform") or "unspecified").strip()
+        counts[(reason, platform)] = counts.get((reason, platform), 0) + 1
+    return [(r, p, n) for (r, p), n in sorted(counts.items(), key=lambda kv: -kv[1])]
+
+
+def render_rejected(row: tuple[str, str, int]) -> str:
+    reason, platform, count = row
     return f"""
     <tr>
-      <td data-l="Name"><b>{esc(entry.get('name', 'Unnamed'))}</b></td>
-      <td data-l="Platform">{esc(entry.get('platform', ''))}</td>
-      <td data-l="Tier">{tier_badge(entry.get('tier', 'rejected'))}</td>
-      <td data-l="Reason">{esc(entry.get('reason', 'No reason recorded'))}{f'<small>{note}</small>' if note else ''}</td>
-      <td data-l="Link">{link}</td>
+      <td data-l="Reason"><b>{esc(reason)}</b></td>
+      <td data-l="Platform">{esc(platform)}</td>
+      <td data-l="Count">{count}</td>
     </tr>"""
 
 
@@ -599,7 +619,7 @@ def build_html(data: dict[str, Any]) -> str:
     nav = "".join(f'<a href="#{sid}">{esc(label)}</a>' for sid, label in SECTIONS)
 
     prospect_html = "".join(render_prospect(p, i) for i, p in enumerate(prospects, 1))
-    rejected_html = "".join(render_rejected(r) for r in rejected)
+    rejected_html = "".join(render_rejected(r) for r in aggregate_rejected(rejected))
     pattern_html = "".join(render_pattern(p, i) for i, p in enumerate(patterns, 1))
     gap_html = "".join(render_gap(g, i) for i, g in enumerate(gaps, 1))
     vocab_html = "".join(render_vocab(v) for v in vocab)
@@ -611,10 +631,10 @@ def build_html(data: dict[str, Any]) -> str:
       <section id="rejected">
         <header class="section-head">
           <h2>Who was<br>excluded.</h2>
-          <p>The identity filter is only credible if its cost is visible. These candidates matched the problem but not the Saudi market scope.</p>
+          <p>The identity filter is only credible if its cost is visible. These candidates matched the problem but not the Saudi market scope. Counted by reason, never named — a handle printed beside an inferred nationality is a claim about a person, and this report does not make one.</p>
         </header>
         <table>
-          <thead><tr><th>Name</th><th>Platform</th><th>Tier</th><th>Reason</th><th>Link</th></tr></thead>
+          <thead><tr><th>Reason</th><th>Platform</th><th>Count</th></tr></thead>
           <tbody>{rejected_html}</tbody>
         </table>
       </section>""" if rejected_html else """
@@ -816,6 +836,15 @@ def main() -> None:
     missing_ar = [p for p in prospects if not str(p.get("quote_ar") or "").strip()]
     if missing_ar:
         print(f"WARNING: {len(missing_ar)} prospect(s) have no Arabic verbatim quote.")
+    named_rejects = [r for r in dicts(data.get("rejected")) if r.get("name") or r.get("source_url")]
+    if named_rejects:
+        print(
+            f"NOTE: {len(named_rejects)} rejection entr(ies) carried a handle or source URL. "
+            "The report counts rejections by reason and does not publish either."
+        )
+    long_quotes = [p for p in prospects if len(str(p.get("quote_ar") or "")) > QUOTE_CEILING]
+    if long_quotes:
+        print(f"NOTE: {len(long_quotes)} quote(s) exceeded {QUOTE_CEILING} chars and were truncated in the report.")
 
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(build_html(data), encoding="utf-8")
