@@ -30,7 +30,7 @@ Read these before acting. Do not improvise the Arabic or the scoring.
 | [references/fit-check.md](references/fit-check.md) | Anything else — this runs first |
 | [references/arabic-query-lexicon.md](references/arabic-query-lexicon.md) | Writing any search query |
 | [references/platform-playbooks.md](references/platform-playbooks.md) | Touching X, Reddit, or LinkedIn |
-| [references/saudi-identity-verification.md](references/saudi-identity-verification.md) | Qualifying or rejecting any person |
+| [references/scope-verification.md](references/scope-verification.md) | Qualifying or rejecting any person |
 | [references/research-framework.md](references/research-framework.md) | Scoring anything |
 | [references/report-artifact.md](references/report-artifact.md) | Building the report |
 
@@ -132,7 +132,7 @@ evidence.
 
 ### 4. Verify Saudi identity — mandatory gate
 
-Apply `references/saudi-identity-verification.md` to every candidate.
+Apply `references/scope-verification.md` to every candidate.
 
 - **Confirmed Saudi**: two or more independent Saudi signals, zero contradictions.
 - **Likely Saudi**: one strong signal, zero contradictions.
@@ -146,7 +146,7 @@ attached to a real person. The count carries the whole evidentiary load.
 
 Their pain still counts in product intelligence. It is the identity that does not ship.
 
-Score `saudi_authenticity` below 3 is an automatic exclusion from the primary shortlist,
+Score `scope_match` below 3 is an automatic exclusion from the primary shortlist,
 regardless of how strong the pain signal is.
 
 ### 5. Verify every link before it enters the report
