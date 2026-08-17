@@ -1,5 +1,11 @@
 # Acceptance run — 2.0.0 generalization
 
+> **German is no longer in supported scope.** After this run, the skill was limited to
+> Arabic and English — one product in one market is not enough evidence to claim a
+> language. This record stays because it is the evidence that the architecture
+> generalizes, which is what justifies keeping that architecture behind the limit. It is
+> not a support claim. A repeat of this run is what it would take to add German.
+
 Ran 2026-08-18 against a non-Saudi, non-Arabic product, following
 `finding-first-customers/references/market-profile.md` as written.
 

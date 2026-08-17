@@ -91,6 +91,18 @@ Use $finding-first-customers in b2b mode for [URL]. Find companies in [market] w
 public timing triggers and the decision roles associated with them.
 ```
 
+## Supported languages
+
+**Arabic and English.** The workflow derives its search vocabulary at runtime and is not
+built around any one market, but only these two languages have been run end to end — and
+a method is supported where it has been exercised, not where it could be.
+
+If a run derives any other language from the product's site, it stops, names the language,
+and hands you the choice. It does not quietly continue with a caveat buried in the report.
+
+Adding a language is a small change plus an acceptance run for it. The architecture is
+already there; the evidence is not.
+
 ## How it handles a market it has never seen
 
 The skill ships no lexicon and no country list. At the start of every run it derives a

@@ -1,6 +1,6 @@
 ---
 name: finding-first-customers
-description: Use when someone gives a product URL or idea and wants first customers, early adopters, demand validation, market research, or an ideal customer profile — including finding out whether a market's demand is visible in public text, and confirming a prospect is actually inside the target market rather than a neighbouring one.
+description: Use when someone gives a product URL or idea and wants first customers, early adopters, demand validation, market research, or an ideal customer profile in an Arabic-speaking or English-speaking market — including finding out whether a market's demand is visible in public text, and confirming a prospect is actually inside the target market rather than a neighbouring one.
 ---
 
 # Finding First Customers
@@ -291,6 +291,11 @@ only if the user names a different mode themselves.
 
 ## Hard rules
 
+- **Arabic and English only.** The workflow derives any market, but only these two
+  languages have been run end to end, so only these two are supported. The
+  supported-language gate in `references/market-profile.md` decides and, on a language
+  outside that set, stops the run for the user. Do not proceed past it on your own
+  judgement.
 - **In-market or excluded.** Neighbouring-market and expatriate/diaspora voices are
   logged, not shortlisted, unless the user explicitly widens the scope.
 - **No link, no prospect.** Verified and re-readable, or it does not ship.

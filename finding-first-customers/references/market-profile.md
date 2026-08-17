@@ -80,6 +80,29 @@ currency, the footer for the legal entity and country, the language switcher for
 languages the founder already believes matter, and any "available in" or shipping copy.
 Record the URL of the page each fact came from.
 
+### Supported-language gate — stop here if it fails
+
+This skill is verified for **Arabic and English only**. The architecture derives any
+market, but only these two have been run end to end, and a method is supported where it
+has been exercised, not where it could be.
+
+Apply the gate the moment the language is named, before any query is spent:
+
+| Derived language | Action |
+| --- | --- |
+| Arabic or English | Continue |
+| Both, or one of them plus another | Continue on the supported one. Record the other as unsearched scope in the report's limits |
+| Neither | **Stop.** Report and wait |
+
+On a stop, state four things and nothing more: the language you derived, the page you
+read it from, that the skill is verified only for Arabic and English, and that the user
+may direct you to proceed anyway. If they do, record in the report's limits that the run
+was outside verified scope at their direction. Do not proceed on your own judgement, and
+do not soften the stop into a warning you then walk past — an unverified run that reads
+like a verified one is the failure this gate exists to prevent.
+
+Every other file refers to this gate rather than restating it.
+
 **How to tell a good result from a bad one.** Pass: every fact here cites the page it was
 read from, and the languages named are the ones buyers *write* in, not the ones the site
 is published in. Wrong answer: recording a market and a language as a bare pair and moving

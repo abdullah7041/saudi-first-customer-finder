@@ -48,32 +48,51 @@ path, not the market.
 Fire one first-person query in the market's language with no category noun at all — a
 phrase the platform is certainly full of, on any topic.
 
-Take three forms from the **pain** bucket of **local phrasing**, choosing the ones that
-already carry **no category and no domain noun**: the bare first-person expressions of
-frustration or exhaustion that people type about anything. Those are what a control is made
-of, because their volume on the platform has nothing to do with this product. Use them
-exactly as recorded.
+**Use the control for the run's language, exactly as written.** These are fixed, not
+composed. The skill supports two languages (see the supported-language gate in
+`references/market-profile.md`), so the control does not need to be derived, and deriving
+it is where it goes wrong: a control assembled on the fly is a guess about vocabulary
+sitting in front of a verdict that reads as a fact about the market.
 
-**Do not manufacture one by deleting the noun from a longer recorded form.** A stripped
-form is no longer verbatim, and `references/market-profile.md` is explicit that case,
-gender, agreement, and contraction break single-form matching — remove a token from an
-inflected phrase and you can be left with a string the index has never contained. The
-control would return zero, the run would report **PATH-B BLIND**, and the user would be
-sent to `research-only` over a search path that was never blind. That is precisely the
-misreading Step 2 exists to prevent.
+| Language | Control forms |
+| --- | --- |
+| Arabic | `"والله تعبت"` · `"ما توقعت"` · `"قهر"` |
+| English | `"I'm so tired of"` · `"am I the only one"` · `"can't deal with this"` |
 
-If no recorded pain form is category-free, do not search for one and do not invent one.
-Open a pain post you already read for the profile and lift the generic fragment verbatim
-from it. That is a lookup of something already named, not a search, so it costs nothing —
-and it is the only way to get a form that is both verbatim and category-free.
+The Arabic set is known-good: it returned three real post permalinks with visible text on
+a general web index during a recorded run. The English set is built to the same shape —
+first-person, category-free, high-volume, and not a phrase any product category owns.
+
+If a control returns 0-2 qualifying results, that is the verdict. Do not swap in different
+forms to get a better number: the control is measuring the path, and changing the ruler
+until it gives the answer you want measures nothing.
+
+**Do not edit the forms.** Not to fit the market better, not by deleting a word, not by
+translating one. Case, gender, agreement and contraction all break single-form matching,
+so an altered form can be a string the index has never contained — the control returns
+zero, the run reports **PATH-B BLIND**, and the user is sent to `research-only` over a
+search path that was never blind. Three forms are given per language rather than one
+because a single form can be missing from an index on orthography alone.
 
 ```
-site:<the platform> ("<generic pain form>" OR "<generic pain form>" OR "<generic pain form>") <the platform's language filter, if it has one>
+site:<one platform> ("<control form>" OR "<control form>" OR "<control form>") <the platform's language filter, if it has one>
 ```
 
-Three forms, not one, because **local phrasing** records spelling and inflection variants
-for a reason — a single form can be absent from an index for orthography alone, and that
-would read here as a dead search path.
+**Two construction rules. Both come from a control that failed in a recorded run.**
+
+*One platform per control query.* Never `site:a.com OR site:b.com OR site:c.com`. A
+multi-site control returns whichever host the index ranks highest overall, which is the
+one with the most marketing pages — so the query answers "which of these sites does the
+index like" instead of "can the path reach posts". Reaching three platforms means three
+controls, or picking the one that **where the audience writes** actually named.
+
+*No date or year tokens.* Adding a year pulls SEO pages that carry the year in the title
+ahead of the posts you are testing for. Recency is enforced by qualifying condition 4,
+when you read the results — never by the query.
+
+A recorded run broke both rules at once, scored one qualifying post against a threshold of
+three, and reported **PATH-B BLIND** on a path that had returned real forum posts minutes
+earlier. The verdict machinery was right; the query was malformed.
 
 **On the language filter slot.** **Where the audience writes** names a platform, not query
 syntax, and many platforms — forums, discussion boards, professional networks — have no
