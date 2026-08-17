@@ -36,23 +36,31 @@ def test_rejections_are_counted_by_reason_and_platform():
 
 def test_quotes_are_truncated_at_the_ceiling():
     long_quote = "ب" * (g.QUOTE_CEILING + 120)
-    rendered = g.arabic(long_quote)
+    rendered = g.quote_block(long_quote)
     assert "[…]" in rendered
     assert len(rendered) < len(long_quote) + 200
 
 
 def test_short_quotes_are_left_alone():
-    assert "[…]" not in g.arabic("ب" * 40)
+    assert "[…]" not in g.quote_block("ب" * 40)
 
 
 def test_right_to_left_evidence_keeps_its_direction():
     """The worked example depends on this, so the rename tasks must not regress it."""
-    rendered = g.arabic("أبغى أداة")
+    rendered = g.quote_block("أبغى أداة")
     assert 'dir="rtl"' in rendered
     assert 'lang="ar"' in rendered
 
 
 def test_left_to_right_evidence_renders():
-    """A German or Brazilian run must render evidence just as well as an Arabic one."""
-    rendered = g.arabic("Ich suche ein Tool dafür")
+    """A German or Brazilian run must render evidence just as well as an Arabic one,
+    with the direction and language tag the text actually deserves — not a hardcoded
+    Arabic default."""
+    rendered = g.quote_block("Ich suche ein Tool dafür")
     assert "Ich suche ein Tool" in rendered
+    assert 'dir="ltr"' in rendered
+    assert 'lang="ar"' not in rendered
+
+    rendered_with_lang = g.quote_block("Ich suche ein Tool dafür", lang="de")
+    assert 'dir="ltr"' in rendered_with_lang
+    assert 'lang="de"' in rendered_with_lang

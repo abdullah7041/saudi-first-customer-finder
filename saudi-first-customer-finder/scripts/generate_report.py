@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate a standalone bilingual Saudi First Customer Finder HTML report from JSON.
+"""Generate a standalone bilingual First Customer Finder HTML report from JSON.
 
 Usage:
     python3 generate_report.py analysis.json outputs/saudi-first-customer-report.html
@@ -13,6 +13,7 @@ from __future__ import annotations
 import argparse
 import html
 import json
+import unicodedata
 from datetime import date, datetime
 from pathlib import Path
 from typing import Any
@@ -20,7 +21,7 @@ from urllib.parse import urlparse
 
 
 DIMENSIONS = {
-    "saudi_authenticity": ("Saudi authenticity", 20),
+    "scope_match": ("Scope match", 20),
     "pain_strength": ("Pain strength", 20),
     "product_fit": ("Product fit", 20),
     "timing": ("Timing", 15),
@@ -95,8 +96,8 @@ def stage_class(stage: Any) -> str:
 def tier_badge(tier: Any) -> str:
     value = str(tier or "").lower()
     labels = {
-        "confirmed": ("confirmed", "Confirmed Saudi"),
-        "likely": ("likely", "Likely Saudi"),
+        "confirmed": ("confirmed", "Confirmed in-market"),
+        "likely": ("likely", "Likely in-market"),
         "rejected": ("rejected", "Rejected"),
     }
     cls, label = labels.get(value, ("unverified", "Unverified"))
@@ -108,15 +109,57 @@ def tier_badge(tier: Any) -> str:
 QUOTE_CEILING = 280
 
 
-def arabic(text: Any, label: str = "Original Arabic") -> str:
+# Unicode bidi classes that establish right-to-left direction under the
+# first-strong-character rule — the same rule behind HTML's dir="auto".
+_RTL_BIDI_CLASSES = {"R", "AL"}
+
+
+def base_direction(text: str) -> str:
+    """First-strong-character text direction: 'rtl' or 'ltr'.
+
+    Walks the string and returns as soon as a character with a strong
+    direction is found (Unicode bidi class R/AL for right-to-left, L for
+    left-to-right). Neutral characters (digits, punctuation, whitespace) are
+    skipped. Falls back to 'ltr' if nothing strong is found.
+    """
+    for ch in text:
+        bidi = unicodedata.bidirectional(ch)
+        if bidi in _RTL_BIDI_CLASSES:
+            return "rtl"
+        if bidi == "L":
+            return "ltr"
+    return "ltr"
+
+
+def quote_block(text: Any, label: str = "Original quote", lang: Any = None) -> str:
+    """Render a verbatim evidence quote in its own language and direction.
+
+    `lang` should come from a per-quote language field in the source JSON
+    (e.g. "de", "pt", "ar") whenever the caller has it — that is always more
+    reliable than guessing. When it is absent, direction is inferred from
+    the text itself via the first-strong-character rule. A language *code*
+    is only ever inferred for the right-to-left case (defaulting to "ar",
+    since Arabic is this skill's overwhelmingly common right-to-left
+    source); a left-to-right quote with no declared language gets the
+    correct direction but no `lang` attribute, because Latin script alone
+    does not say which language it is.
+    """
     value = str(text or "").strip()
     if not value:
         return ""
     if len(value) > QUOTE_CEILING:
         value = value[:QUOTE_CEILING].rstrip() + " […]"
+    direction = base_direction(value)
+    declared_lang = str(lang or "").strip()
+    if declared_lang:
+        lang_attr = f' lang="{esc(declared_lang)}"'
+    elif direction == "rtl":
+        lang_attr = ' lang="ar"'
+    else:
+        lang_attr = ""
     return (
         f'<div class="ar-block"><span>{esc(label)}</span>'
-        f'<p dir="rtl" lang="ar">{esc(value)}</p></div>'
+        f'<p dir="{direction}"{lang_attr}>{esc(value)}</p></div>'
     )
 
 
@@ -179,14 +222,14 @@ def render_prospect(prospect: dict[str, Any], index: int) -> str:
           <h3>{esc(prospect.get('name', f'Prospect {index}'))}</h3>
           <div class="badges">
             <span class="stage {stage_class(prospect.get('stage'))}">{esc(prospect.get('stage', 'Potential fit'))}</span>
-            {tier_badge(prospect.get('saudi_tier'))}
+            {tier_badge(prospect.get('scope_tier'))}
             <span class="chip date">{esc(prospect.get('signal_date', 'Date unavailable'))}</span>
           </div>
         </div>
         <div class="score" style="--score:{score}" aria-label="Fit score {score} out of 100"><strong>{score}</strong><small>/100</small></div>
       </header>
 
-      {arabic(prospect.get('quote_ar'))}
+      {quote_block(prospect.get('quote_ar'), lang=prospect.get('quote_lang'))}
       <div class="signal"><span>What they said &middot; English</span><p>{esc(prospect.get('quote_en') or prospect.get('pain_signal', ''))}</p></div>
 
       <div class="prospect-grid">
@@ -208,7 +251,7 @@ def render_prospect(prospect: dict[str, Any], index: int) -> str:
             <p>{verified_flag(prospect)}</p>
           </div>
         </div>
-        <div class="markers"><span>Saudi identity markers</span><ul>{marker_html or '<li>None recorded</li>'}</ul></div>
+        <div class="markers"><span>Scope markers</span><ul>{marker_html or '<li>None recorded</li>'}</ul></div>
         <div class="metrics">{render_dimensions(prospect.get('dimensions') if isinstance(prospect.get('dimensions'), dict) else {})}</div>
       </details>
     </article>"""
@@ -248,7 +291,7 @@ def render_pattern(pattern: dict[str, Any], index: int, kind: str = "") -> str:
       <div>
         <h3>{esc(pattern.get('title', 'Repeated signal'))}</h3>
         <p>{esc(pattern.get('insight', ''))}</p>
-        {arabic(pattern.get('quote_ar'), 'Representative quote')}
+        {quote_block(pattern.get('quote_ar'), 'Representative quote', pattern.get('quote_lang'))}
       </div>
       <strong>{clamp(pattern.get('count'), 999)}&times;</strong>
     </article>"""
@@ -267,7 +310,7 @@ def render_gap(gap: dict[str, Any], index: int) -> str:
       <div>
         <h3>{esc(gap.get('title', 'Gap'))} {tag}</h3>
         <p>{esc(gap.get('insight', ''))}</p>
-        {arabic(gap.get('quote_ar'), 'Evidence')}
+        {quote_block(gap.get('quote_ar'), 'Evidence', gap.get('quote_lang'))}
       </div>
       <strong>{clamp(gap.get('count'), 999)}&times;</strong>
     </article>"""
@@ -291,7 +334,7 @@ def render_competitor(c: dict[str, Any]) -> str:
         <div><span>How they take orders</span><p>{esc(c.get('order_channel', 'Unknown'))}</p></div>
         <div><span>Visible price</span><p>{esc(c.get('price', 'Not stated'))}</p></div>
       </div>
-      {arabic(c.get('quote_ar'), 'Their pitch')}
+      {quote_block(c.get('quote_ar'), 'Their pitch', c.get('quote_lang'))}
       {link}
     </article>"""
 
@@ -355,8 +398,8 @@ def build_dashboard(prospects: list[dict[str, Any]], generated: date | None) -> 
     fresh_rows = [(k, counts[k]) for k, _ in buckets]
 
     tiers = [
-        ("Confirmed Saudi", sum(1 for p in prospects if str(p.get("saudi_tier", "")).lower() == "confirmed")),
-        ("Likely Saudi", sum(1 for p in prospects if str(p.get("saudi_tier", "")).lower() == "likely")),
+        ("Confirmed in-market", sum(1 for p in prospects if str(p.get("scope_tier", "")).lower() == "confirmed")),
+        ("Likely in-market", sum(1 for p in prospects if str(p.get("scope_tier", "")).lower() == "likely")),
     ]
 
     return f"""
@@ -609,7 +652,7 @@ def build_html(data: dict[str, Any]) -> str:
     scores = [clamp(p.get("score")) for p in prospects]
     average = round(sum(scores) / len(scores)) if scores else 0
     high_intent = sum(1 for p in prospects if "high" in str(p.get("stage", "")).lower())
-    confirmed = sum(1 for p in prospects if str(p.get("saudi_tier", "")).lower() == "confirmed")
+    confirmed = sum(1 for p in prospects if str(p.get("scope_tier", "")).lower() == "confirmed")
     top = max(prospects, key=lambda p: clamp(p.get("score")), default={})
     generated = parse_date(data.get("generated_at")) or date.today()
 
@@ -631,7 +674,7 @@ def build_html(data: dict[str, Any]) -> str:
       <section id="rejected">
         <header class="section-head">
           <h2>Who was<br>excluded.</h2>
-          <p>The identity filter is only credible if its cost is visible. These candidates matched the problem but not the Saudi market scope. Counted by reason, never named — a handle printed beside an inferred nationality is a claim about a person, and this report does not make one.</p>
+          <p>The identity filter is only credible if its cost is visible. These candidates matched the problem but not the target market scope. Counted by reason, never named — a handle printed beside an inferred nationality is a claim about a person, and this report does not make one.</p>
         </header>
         <table>
           <thead><tr><th>Reason</th><th>Platform</th><th>Count</th></tr></thead>
@@ -640,14 +683,14 @@ def build_html(data: dict[str, Any]) -> str:
       </section>""" if rejected_html else """
       <section id="rejected" class="limits" style="border-color:#ff7a7a">
         <h2>No rejection log</h2>
-        <p>No candidates were recorded as rejected. Either the Saudi identity filter did not run, or its results were not captured. Treat this shortlist with caution.</p>
+        <p>No candidates were recorded as rejected. Either the scope filter did not run, or its results were not captured. Treat this shortlist with caution.</p>
       </section>"""
 
     competitors_section = f"""
       <section id="competitors">
         <header class="section-head">
           <h2>Who already<br>sells to them.</h2>
-          <p>In Saudi Arabia the incumbent is often not an app — it is a human service on WhatsApp, a DM-order account, or a free circulating prompt. This is the real price anchor.</p>
+          <p>The incumbent is often not an app — it can be a human service, a messaging-app seller, or a free circulating prompt. This is the real price anchor.</p>
         </header>
         <div class="competitors">{competitor_html}</div>
       </section>""" if competitor_html else ""
@@ -697,7 +740,7 @@ def build_html(data: dict[str, Any]) -> str:
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="color-scheme" content="dark">
-  <title>{esc(data.get('title', 'Saudi First Customer Finder'))}</title>
+  <title>{esc(data.get('title', 'First Customer Finder'))}</title>
   <style>{CSS}</style>
 </head>
 <body>
@@ -705,7 +748,7 @@ def build_html(data: dict[str, Any]) -> str:
 
   <header class="top">
     <div class="top-in">
-      <div class="brand"><i></i><span>Saudi First Customer Finder</span></div>
+      <div class="brand"><i></i><span>First Customer Finder</span></div>
       <nav class="nav">{nav}</nav>
       <button type="button" onclick="window.print()">Save PDF</button>
     </div>
@@ -832,7 +875,7 @@ def main() -> None:
         names = ", ".join(str(p.get("name", "unnamed")) for p in unverified)
         print(f"WARNING: {len(unverified)} prospect(s) have link_verified != true: {names}")
     if not dicts(data.get("rejected")):
-        print("WARNING: rejection log is empty — the Saudi identity filter may not have run.")
+        print("WARNING: rejection log is empty — the scope filter may not have run.")
     missing_ar = [p for p in prospects if not str(p.get("quote_ar") or "").strip()]
     if missing_ar:
         print(f"WARNING: {len(missing_ar)} prospect(s) have no Arabic verbatim quote.")
