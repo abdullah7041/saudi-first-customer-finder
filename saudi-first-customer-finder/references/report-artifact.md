@@ -55,7 +55,7 @@ Open the HTML and confirm:
       "type": "Public X prospect · recent graduate",
       "stage": "High intent",
       "score": 88,
-      "saudi_tier": "confirmed",
+      "scope_tier": "confirmed",
       "saudi_markers": ["dialect: أبغى، وش، مره", "context: mentions جدارات", "location: الرياض"],
       "quote_ar": "تعبت من كتابة السيرة الذاتية، كل مرة أعيدها ومحد يرد علي",
       "quote_en": "I'm exhausted from writing my CV — I redo it every time and nobody replies.",
@@ -74,7 +74,7 @@ Open the HTML and confirm:
       "link_verified": true,
       "verified_at": "2026-08-02",
       "dimensions": {
-        "saudi_authenticity": 5,
+        "scope_match": 5,
         "pain_strength": 5,
         "product_fit": 4,
         "timing": 5,
@@ -189,7 +189,7 @@ Open the HTML and confirm:
 - `quote_ar` is **required** for any Arabic-language source. Verbatim, unedited.
 - `link_verified` must be `true` for every entry in `prospects`. Anything else was
   dropped before this stage.
-- `saudi_tier` is `confirmed` or `likely` for prospects. `unverified` and `rejected`
+- `scope_tier` is `confirmed` or `likely` for prospects. `unverified` and `rejected`
   belong in the `rejected` array.
 - `opener_ar` is present only for the top three, and omitted entirely in `research-only`
   mode.
@@ -203,6 +203,19 @@ Open the HTML and confirm:
 - `quote_ar` on a prospect is one or two sentences. The generator truncates anything
   over 280 characters: past that the report has stopped quoting evidence and started
   republishing the post.
+- `quote_lang` is an **optional** companion to any `quote_ar` field (on a prospect,
+  pattern, feature gap, or competitor) — a BCP-47-style language code such as `"ar"`,
+  `"de"`, or `"pt"`. It decides the `lang` attribute and, indirectly, the render
+  direction of that quote block. When omitted, the generator infers direction from the
+  quote text itself using the first-strong-character rule (the same rule behind HTML's
+  `dir="auto"`): the first character with a strong direction decides right-to-left or
+  left-to-right for the whole quote. It only ever guesses a specific *language* code for
+  the right-to-left case, defaulting to `"ar"`, because Arabic is this skill's
+  overwhelmingly common right-to-left source; a left-to-right quote with no declared
+  `quote_lang` renders with the correct direction but no `lang` attribute, since Latin
+  script alone does not say whether the text is German, Portuguese, or something else.
+  Set `quote_lang` explicitly whenever the source language is known — it is always more
+  reliable than inference.
 - Counts in `patterns` and `product_intelligence` are counts of observed independent
   signals. Never estimated, never rounded up.
 - `type` on a feature gap is `build` (product does not do it) or `message` (product does

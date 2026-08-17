@@ -37,7 +37,7 @@ Score each 0–5, then weight:
 
 | Dimension | Weight | What earns a 5 |
 | --- | --- | --- |
-| **Saudi authenticity** | 20% | Confirmed tier: multiple independent Saudi signals, zero contradictions |
+| **Scope match** | 20% | Confirmed tier: multiple independent in-market signals, zero contradictions |
 | **Pain strength** | 20% | Directly stated, severe, repeated, with a named cost in time or money |
 | **Product fit** | 20% | The product solves the exact evidenced job, not an adjacent one |
 | **Timing** | 15% | Signal is fresh and a current trigger is visible |
@@ -45,7 +45,7 @@ Score each 0–5, then weight:
 | **Evidence quality** | 15% | Specific, first-person, verified link, unambiguous attribution |
 
 ```text
-score = saudi_authenticity/5*20
+score = scope_match/5*20
       + pain_strength/5*20
       + product_fit/5*20
       + timing/5*15
@@ -55,7 +55,7 @@ score = saudi_authenticity/5*20
 
 ### Hard gates — applied before the total matters
 
-- `saudi_authenticity < 3` → **excluded from the primary shortlist**, regardless of
+- `scope_match < 3` → **excluded from the primary shortlist**, regardless of
   total score. Goes to the rejection log.
 - `link_verified != true` → **dropped entirely.** Not logged as a prospect, not shown.
 - `pain_strength < 2` → not a prospect. ICP membership without evidenced pain is a
@@ -70,16 +70,16 @@ score = saudi_authenticity/5*20
   label the gap
 - **Below 55** — excluded from the primary shortlist
 
-### Saudi authenticity rubric
+### Scope match rubric
 
 | Score | Meaning |
 | --- | --- |
-| 5 | Confirmed: 3+ independent signals across categories, zero contradictions |
-| 4 | Confirmed: 2 independent signals, zero contradictions |
-| 3 | Likely: 1 strong signal (clear dialect cluster or stated KSA location), zero contradictions |
-| 2 | Weak: ambiguous Gulf markers, or KSA context with no personal-identity signal |
+| 5 | Confirmed: 3+ independent scope markers across categories, zero contradictions |
+| 4 | Confirmed: 2 independent scope markers, zero contradictions |
+| 3 | Likely: 1 strong scope marker (clear language-variety cluster or stated in-market location), zero contradictions |
+| 2 | Weak: ambiguous regional markers, or in-market context with no personal-scope signal |
 | 1 | Unverified: ICP match only |
-| 0 | Contradicted: disqualifying dialect or non-KSA location |
+| 0 | Contradicted: disqualifying marker or neighbouring-market location |
 
 ### Timing decay
 
