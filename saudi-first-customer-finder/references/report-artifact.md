@@ -5,7 +5,7 @@ Build the JSON, then run the bundled generator. Do not hand-write report markup.
 ## Generate
 
 ```bash
-python3 scripts/generate_report.py analysis.json outputs/saudi-first-customer-report.html
+python3 scripts/generate_report.py analysis.json outputs/report.html
 ```
 
 Keep `analysis.json` in a working or temporary directory unless the user asks for the raw
@@ -26,21 +26,21 @@ Open the HTML and confirm:
 
 ```json
 {
-  "title": "Saudi First Customer Signals",
+  "title": "First Customer Signals",
   "product": "Example product",
   "product_url": "https://example.com",
-  "target_customer": "Saudi nationals aged 22-30 applying for private-sector roles",
+  "target_customer": "In-market nationals aged 22-30 applying for private-sector roles",
   "mode": "deep",
-  "search_scope": "X (28 Arabic queries, logged-in session), Reddit (19 queries, public), LinkedIn (14 queries, public web search). Window: 2025-08-01 to 2026-08-01.",
+  "search_scope": "X (28 local-language queries, logged-in session), Reddit (19 queries, public), LinkedIn (14 queries, public web search). Window: 2025-08-01 to 2026-08-01.",
   "access_path": "Path A (browser session) for X and LinkedIn; public search for Reddit",
   "generated_at": "2026-08-02",
-  "verdict": "Real Saudi demand concentrates on X among recent graduates who describe the problem as قهر and are already paying service offices to do it manually.",
+  "verdict": "Real in-market demand concentrates on X among recent graduates who describe the problem in visceral first-person frustration terms and are already paying service offices to do it manually.",
 
   "icp": {
-    "buyer": "Saudi national, 22-30, recent graduate or 1-3 years experience",
+    "buyer": "In-market national, 22-30, recent graduate or 1-3 years experience",
     "job": "Turn an existing CV into something that gets a reply",
     "trigger": "Graduated, or three months of silence after applying",
-    "disqualifiers": ["Non-Saudi residents", "Senior executives using recruiters"]
+    "disqualifiers": ["Out-of-market residents", "Senior executives using recruiters"]
   },
 
   "stats": {
@@ -57,15 +57,15 @@ Open the HTML and confirm:
       "stage": "High intent",
       "score": 88,
       "scope_tier": "confirmed",
-      "scope_markers": ["dialect: أبغى، وش، مره", "context: mentions جدارات", "location: الرياض"],
-      "quote_ar": "تعبت من كتابة السيرة الذاتية، كل مرة أعيدها ومحد يرد علي",
+      "scope_markers": ["language variety: informal first-person markers", "context: mentions a civic platform", "location: stated in bio"],
+      "quote_ar": "[verbatim source-language pain quote, unedited]",
       "quote_en": "I'm exhausted from writing my CV — I redo it every time and nobody replies.",
       "pain_signal": "Repeatedly rewriting a CV with no responses over several months.",
       "why_fit": "The product compares a CV against one target vacancy and shows what is unproven.",
       "why_now": "Posted 9 days before research; actively applying.",
       "suggested_channel": "Public reply on the same X thread",
       "caution": "Do not imply the product can overcome hiring constraints it cannot affect.",
-      "opener_ar": "شفت تغريدتك عن السيرة الذاتية...",
+      "opener_ar": "[unsent draft opener in the source language]",
       "opener_note": "Unsent draft. Top-3 prospects only. Omitted in research-only mode.",
       "evidence": "The post names the field, the duration of the search, and the rewriting workflow.",
       "source_title": "Post title or first line",
@@ -89,8 +89,8 @@ Open the HTML and confirm:
     {
       "platform": "Reddit",
       "tier": "rejected",
-      "reason": "Egyptian dialect markers (عايز، مش، ازاي) with no KSA context signal",
-      "note": "Pain signal is real and counted in product intelligence, but out of Saudi scope."
+      "reason": "Neighbouring-market language markers, no target-market context signal",
+      "note": "Pain signal is real and counted in product intelligence, but out of target-market scope."
     }
   ],
 
@@ -99,29 +99,29 @@ Open the HTML and confirm:
       "title": "The workaround is already paid",
       "count": 7,
       "insight": "Multiple prospects pay a service office rather than use software, which sets a real price anchor.",
-      "quote_ar": "رحت مكتب خدمات وسويتها بمئة ريال"
+      "quote_ar": "[verbatim source-language quote naming the paid workaround]"
     }
   ],
 
   "product_intelligence": {
     "feature_gaps": [
       {
-        "title": "Arabic-language output, not just an Arabic interface",
+        "title": "Local-language output, not just a translated interface",
         "count": 6,
-        "insight": "Users assume any AI tool produces awkward translated Arabic and want proof otherwise.",
-        "quote_ar": "كل البرامج تطلع عربي مترجم ومايناسب",
+        "insight": "Users assume any AI tool produces awkward translated output and want proof otherwise.",
+        "quote_ar": "[verbatim source-language quote doubting translated output]",
         "type": "build"
       }
     ],
     "vocabulary": [
       {
-        "term_ar": "سيرة ذاتية",
+        "term_ar": "[category term in the source language]",
         "meaning_en": "CV / resume",
         "count": 31,
         "use": "Category term — use in headline"
       },
       {
-        "term_ar": "محد يرد علي",
+        "term_ar": "[problem term in the source language]",
         "meaning_en": "nobody replies to me",
         "count": 14,
         "use": "Problem term — use as the hook, not 'optimize your resume'"
@@ -129,7 +129,7 @@ Open the HTML and confirm:
     ],
     "channels": [
       {
-        "name": "#وظائف_السعودية",
+        "name": "#local-job-search-hashtag",
         "platform": "X",
         "why": "Continuous stream of first-person job-search frustration",
         "activity": "High, daily",
@@ -141,7 +141,7 @@ Open the HTML and confirm:
         "title": "Scam fatigue around paid CV services",
         "count": 5,
         "insight": "Prior bad experiences with paid ATS 'experts' make claims of guaranteed results actively harmful.",
-        "quote_ar": "كلهم نصب، دفعت ومحصلت شي"
+        "quote_ar": "[verbatim source-language quote expressing scam fatigue]"
       }
     ],
     "competitors": [
@@ -153,18 +153,18 @@ Open the HTML and confirm:
         "offer": "Writes an ATS-compatible CV to order, posts several times a day.",
         "order_channel": "WhatsApp number in the post",
         "price": "Not stated publicly",
-        "quote_ar": "نجهز لك سيرة ذاتية احترافية ومتوافقة مع نظام ATS",
+        "quote_ar": "[verbatim source-language ad copy for the human service]",
         "source_url": "https://x.com/example/status/123"
       },
       {
-        "name": "Circulating ChatGPT prompt",
+        "name": "Circulating AI-assistant prompt",
         "platform": "X",
         "kind": "Free workaround",
         "threat": "high",
-        "offer": "A copy-paste Arabic prompt that tailors a CV to a job description with ATS keywords.",
+        "offer": "A copy-paste prompt in the source language that tailors a CV to a job description with ATS keywords.",
         "order_channel": "Reshared as social content",
         "price": "Free",
-        "quote_ar": "عدّل سيرتي الذاتية [الصقها هنا] خصيصًا لهذي الوظيفة",
+        "quote_ar": "[verbatim source-language text of the circulating prompt]",
         "source_url": "https://x.com/example/status/456"
       }
     ]
@@ -179,8 +179,8 @@ Open the HTML and confirm:
 
   "limits": [
     "These are potential customers inferred from public signals, not confirmed buyers or people who consented to contact.",
-    "46 of 84 candidates were rejected on Saudi identity — visible English-language demand skews expat.",
-    "Snapchat and TikTok carry large Saudi audiences but were not searchable for text evidence."
+    "46 of 84 candidates were rejected on market scope — visible English-language demand skews toward neighbouring markets.",
+    "Some platforms carry large audiences in this market but were not searchable for text evidence."
   ]
 }
 ```

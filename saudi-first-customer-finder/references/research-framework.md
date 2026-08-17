@@ -176,8 +176,8 @@ Where the demand concentrates:
 What stops Saudi users from adopting this category. Recurring themes across most
 verticals:
 
-- price and subscription resentment (`غالي`, `ما يستاهل`)
-- scam fatigue (`نصب`) around paid digital services
+- price and subscription resentment
+- scam fatigue around paid digital services
 - doubt that a tool genuinely works in Arabic rather than being an English tool with a
   translated UI
 - data privacy, especially for national ID, salary, and personal documents
