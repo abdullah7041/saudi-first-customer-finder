@@ -57,7 +57,7 @@ Open the HTML and confirm:
       "stage": "High intent",
       "score": 88,
       "scope_tier": "confirmed",
-      "saudi_markers": ["dialect: أبغى، وش، مره", "context: mentions جدارات", "location: الرياض"],
+      "scope_markers": ["dialect: أبغى، وش، مره", "context: mentions جدارات", "location: الرياض"],
       "quote_ar": "تعبت من كتابة السيرة الذاتية، كل مرة أعيدها ومحد يرد علي",
       "quote_en": "I'm exhausted from writing my CV — I redo it every time and nobody replies.",
       "pain_signal": "Repeatedly rewriting a CV with no responses over several months.",
@@ -206,17 +206,22 @@ Open the HTML and confirm:
   republishing the post.
 - `quote_lang` is an **optional** companion to any `quote_ar` field (on a prospect,
   pattern, feature gap, or competitor) — a BCP-47-style language code such as `"ar"`,
-  `"de"`, or `"pt"`. It decides the `lang` attribute and, indirectly, the render
-  direction of that quote block. When omitted, the generator infers direction from the
-  quote text itself using the first-strong-character rule (the same rule behind HTML's
+  `"de"`, or `"pt"`. It decides the `lang` attribute on that quote block. Render
+  **direction** is always computed from the quote text itself, independently of
+  `quote_lang`, using the first-strong-character rule (the same rule behind HTML's
   `dir="auto"`): the first character with a strong direction decides right-to-left or
-  left-to-right for the whole quote. It only ever guesses a specific *language* code for
-  the right-to-left case, defaulting to `"ar"`, because Arabic is this skill's
-  overwhelmingly common right-to-left source; a left-to-right quote with no declared
-  `quote_lang` renders with the correct direction but no `lang` attribute, since Latin
-  script alone does not say whether the text is German, Portuguese, or something else.
-  Set `quote_lang` explicitly whenever the source language is known — it is always more
-  reliable than inference.
+  left-to-right for the whole quote. When `quote_lang` is omitted, the generator falls
+  back to inference for the `lang` attribute only, and it only ever guesses a specific
+  *language* code for the right-to-left case, defaulting to `"ar"`, because Arabic is
+  this skill's overwhelmingly common right-to-left source; a left-to-right quote with no
+  declared `quote_lang` renders with the correct direction but no `lang` attribute,
+  since Latin script alone does not say whether the text is German, Portuguese, or
+  something else. Set `quote_lang` explicitly whenever the source language is known — it
+  is always more reliable than inference.
+- `opener_lang` is the same optional companion field, for `opener_ar`. Same fallback:
+  direction always follows the opener text via the first-strong-character rule; the
+  `lang` attribute uses `opener_lang` when given, else `"ar"` for an inferred
+  right-to-left opener, else no `lang` attribute at all.
 - Counts in `patterns` and `product_intelligence` are counts of observed independent
   signals. Never estimated, never rounded up.
 - `type` on a feature gap is `build` (product does not do it) or `message` (product does

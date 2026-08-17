@@ -28,7 +28,7 @@
       "stage": "High intent",
       "score": 82,
       "scope_tier": "confirmed",
-      "saudi_markers": ["dialect: أبغى", "location: الرياض"],
+      "scope_markers": ["dialect: أبغى", "location: الرياض"],
       "quote_ar": "أبغى أداة تساعدني في هذا",
       "quote_en": "I want a tool to help me with this.",
       "pain_signal": "Sample pain signal.",

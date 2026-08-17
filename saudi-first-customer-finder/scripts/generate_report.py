@@ -202,7 +202,7 @@ def render_dimensions(data: dict[str, Any]) -> str:
 def render_prospect(prospect: dict[str, Any], index: int) -> str:
     score = clamp(prospect.get("score"))
     source = safe_url(prospect.get("source_url"))
-    markers = items(prospect.get("saudi_markers"))
+    markers = items(prospect.get("scope_markers"))
     marker_html = "".join(f"<li>{esc(m)}</li>" for m in markers)
     opener = str(prospect.get("opener_ar") or "").strip()
     opener_html = ""
@@ -528,8 +528,9 @@ conic-gradient(var(--green) calc(var(--score)*1%),var(--line) 0)}
 .score strong{font-size:25px;line-height:1}.score small{color:var(--muted);font-size:11px}
 .ar-block{margin:18px 0 10px;padding:17px;background:rgba(0,194,101,.07);
 border:1px solid rgba(0,194,101,.26);border-radius:12px}
-.ar-block p{margin:0;font-size:20px;line-height:1.95;
-font-family:"Noto Naskh Arabic","Geeza Pro","Segoe UI",Tahoma,"Arabic Typesetting",serif}
+.ar-block p{margin:0;font-size:20px;line-height:1.95}
+.ar-block p[dir="rtl"]{font-family:"Noto Naskh Arabic","Geeza Pro","Segoe UI",Tahoma,"Arabic Typesetting",serif}
+.ar-block p[dir="ltr"]{font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
 .ar-cell{font-size:17px;font-family:"Noto Naskh Arabic","Geeza Pro","Segoe UI",Tahoma,serif}
 .signal{margin:10px 0 12px;padding:15px;background:var(--panel2);border-left:3px solid var(--green);
 border-radius:0 10px 10px 0}
@@ -541,8 +542,9 @@ padding:14px;background:rgba(255,255,255,.015)}
 .prospect-grid p,.evidence p{margin:0;font-size:14px}
 blockquote{margin:12px 0 0;padding:16px;border:1px dashed rgba(0,194,101,.48);
 border-radius:12px;background:rgba(0,194,101,.04)}
-blockquote p{margin:0 0 8px;font-size:18px;line-height:1.95;
-font-family:"Noto Naskh Arabic","Geeza Pro","Segoe UI",Tahoma,serif}
+blockquote p{margin:0 0 8px;font-size:18px;line-height:1.95}
+blockquote p[dir="rtl"]{font-family:"Noto Naskh Arabic","Geeza Pro","Segoe UI",Tahoma,serif}
+blockquote p[dir="ltr"]{font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
 blockquote small{color:var(--muted);font-size:11px}
 details{margin-top:10px}
 summary{cursor:pointer;color:var(--green);font-weight:800;padding:9px 0;font-size:13px}
