@@ -4,10 +4,10 @@ A full run is 60+ queries and a long stretch of work. Some categories cannot pro
 prospect shortlist no matter how well the run is executed — the demand is not written
 down in public text, or targeting the people who have it would be wrong.
 
-This check costs **three queries and about a minute**. It runs on the market profile's
-outputs, so `references/market-profile.md` is derived first, once per job; the check then
-runs before any prospecting query is spent. It ends with one verdict, stated to the user
-before any real searching begins.
+This check costs **four queries and about a minute** — one control plus three probes. It
+runs on the market profile's outputs, so `references/market-profile.md` is derived first,
+once per job; the check then runs before any prospecting query is spent. It ends with one
+verdict, stated to the user before any real searching begins.
 
 Two of the profile's six outputs drive this check. **Local phrasing** supplies every query
 below, and **where the audience writes** supplies the platform those queries are aimed at.
@@ -46,18 +46,41 @@ Say plainly which rule was applied and why. Never silently downgrade the run.
 path, not the market.
 
 Fire one first-person query in the market's language with no category noun at all — a
-phrase the platform is certainly full of, on any topic. Take the forms from the **pain**
-bucket of **local phrasing** and strip the category noun out. The stripped noun is the
-load-bearing property: a control that still names the category measures the category
-instead of the path.
+phrase the platform is certainly full of, on any topic.
+
+Take three forms from the **pain** bucket of **local phrasing**, choosing the ones that
+already carry **no category and no domain noun**: the bare first-person expressions of
+frustration or exhaustion that people type about anything. Those are what a control is made
+of, because their volume on the platform has nothing to do with this product. Use them
+exactly as recorded.
+
+**Do not manufacture one by deleting the noun from a longer recorded form.** A stripped
+form is no longer verbatim, and `references/market-profile.md` is explicit that case,
+gender, agreement, and contraction break single-form matching — remove a token from an
+inflected phrase and you can be left with a string the index has never contained. The
+control would return zero, the run would report **PATH-B BLIND**, and the user would be
+sent to `research-only` over a search path that was never blind. That is precisely the
+misreading Step 2 exists to prevent.
+
+If no recorded pain form is category-free, do not search for one and do not invent one.
+Open a pain post you already read for the profile and lift the generic fragment verbatim
+from it. That is a lookup of something already named, not a search, so it costs nothing —
+and it is the only way to get a form that is both verbatim and category-free.
 
 ```
-site:<the platform> ("<pain form>" OR "<pain form>" OR "<pain form>") <the platform's language filter>
+site:<the platform> ("<generic pain form>" OR "<generic pain form>" OR "<generic pain form>") <the platform's language filter, if it has one>
 ```
 
 Three forms, not one, because **local phrasing** records spelling and inflection variants
 for a reason — a single form can be absent from an index for orthography alone, and that
 would read here as a dead search path.
+
+**On the language filter slot.** **Where the audience writes** names a platform, not query
+syntax, and many platforms — forums, discussion boards, professional networks — have no
+language operator at all. Where the platform has one, use it. Where it does not, omit the
+slot and enforce the language by reading the results, exactly as you do for the four
+qualifying conditions below. A filter you cannot express is never a reason to translate the
+query into a language the platform can filter on.
 
 Count a result only if **all four** hold. Anything else scores zero:
 
@@ -100,11 +123,14 @@ three. Do not fix a disappointing probe by adding a fourth — the point is a fa
 a category that needs six queries to show one signal is already telling you the answer.
 
 1. **Demand probe** — the recorded **explicit demand** forms + the category noun
-   `("<demand form>" OR "<demand form>" OR "<demand form>") [category noun] <language filter>`
+   `("<demand form>" OR "<demand form>" OR "<demand form>") [category noun] <language filter, if the platform has one>`
 2. **Pain probe** — the recorded **pain** forms + the domain noun
-   `("<pain form>" OR "<pain form>" OR "<pain form>") [domain noun] <language filter> <exclude-links operator, if the platform has one>`
+   `("<pain form>" OR "<pain form>" OR "<pain form>") [domain noun] <language filter, if any> <exclude-links operator, if any>`
 3. **Workaround probe** — the recorded **workaround** forms + the domain noun
-   `("<workaround form>" OR "<workaround form>" OR "<workaround form>") [domain noun] <language filter>`
+   `("<workaround form>" OR "<workaround form>" OR "<workaround form>") [domain noun] <language filter, if any>`
+
+Both operator slots follow the Step 2 rule: use them where the platform has them, omit them
+where it does not, and never reshape a query to suit an operator it cannot express.
 
 Use the forms verbatim, including the spelling and inflection variants the profile stated
 it searched. Do not compose a fresh phrase here by translating the product brief: a
@@ -165,41 +191,41 @@ Deliverable nouns and preferred action forms worked out for one specific market 
 ### Observation — the check against a full run
 
 From the Saudi worked example in `examples/saudi.md`, kept as an observation from one
-market rather than as thresholds to reuse. Run against a local-language CV product on
-2026-08-05, the check returned:
+market rather than as thresholds to reuse. Its specifics are stated plainly because they
+are one market's data, not a template. Run against an Arabic-first Saudi CV product on
+2026-08-05, the check — then three probes, before the control existed — returned:
 
 ```
-Probes:          demand 1 · pain 2 · workaround 0 first-person in-market hits
+Probes:          demand 1 · pain 2 · workaround 0 first-person Saudi hits
 Vendor ratio:    ~75% overall, 100% on the workaround probe
 Freshest signal: 8 days
 Verdict:         AMBER — running deep, expect a short list
 ```
 
 A full 60-query pass on the same product, run separately, produced exactly that: one
-strong prospect, a wall of messaging-app CV services, and a free circulating AI-assistant
-prompt as the real incumbent. The check reached the same conclusion in three queries. That
-is the entire point of it.
+strong prospect, a wall of WhatsApp CV services, and a free circulating ChatGPT prompt
+as the real incumbent. That three-probe check reached the same conclusion in three
+queries. That is the entire point of it.
 
 ### Observation — why the control exists
 
-Also from the Saudi worked example. Run on 2026-08-16 against a resume-matching product,
-on a harness whose only web search was a general index restricted to the platform:
+Also from the Saudi worked example, and likewise stated in its own specifics. Run on
+2026-08-16 against a Saudi resume-matching product, on a harness whose only web search was
+a general index with `site:x.com`:
 
 ```
 Probes, noun-framed:     demand 0 · pain 0 · workaround 0
 Probes, symptom-framed:  demand 0 · pain 0 · workaround 0
-Returned instead:        blogs, Q&A sites, neighbouring-market social pages, video
-                         platform discovery pages
+Returned instead:        blogs, Quora, Iraqi Facebook pages, TikTok discover pages
 ```
 
 Six probes, two framings, zero first-person posts — while the same index returned plenty
-of *other* local-language job-seeking content. The check reported RED twice. That was
-wrong: the platform is saturated with in-market job-seeking complaints, and the run had
-simply established that the search path could not return that platform's post text at all.
+of *other* Arabic job-seeking content. The check reported RED twice. That was wrong: X is
+saturated with Saudi job-seeking complaints, and the run had simply established that the
+search path could not return X post text at all.
 
-The control was then run on the same harness, on a phrase that platform contains millions
-of times.
-It returned one 2024 poem and one profile page whose username *was* the search phrase —
+The control was then run on the same harness, on a phrase X contains millions of times. It
+returned one 2024 poem and one profile page whose username *was* the search phrase —
 which is why the scoring rules above are a count of qualifying permalinks rather than an
 impression. Two loose matches read as "the path works." They do not.
 
@@ -224,9 +250,17 @@ Verdict:          GREEN — running deep | AMBER — running deep, expect a shor
 On **PATH-B BLIND**, do not issue a market verdict at all. Say that the search path
 cannot reach recent posts, name the platform, and hand the user the three routes: a
 logged-in session (Path A), `research-only` over the source ladder below, or a different
-platform where the audience actually writes in public text — and for that third route go
-back to **where the audience writes**, which already named the runner-up and any platform
-it recorded as a blind spot. Do not guess a new platform here.
+platform where the audience actually writes in public text.
+
+The third route needs care, because **where the audience writes** names exactly one
+platform — there is no runner-up recorded to fall back on, and the one alternative it does
+record is a blind spot precisely because it carries no searchable text, so it cannot answer
+a search-path failure. So do not guess. Go back to the profile's own result sets and count
+again: the platform was chosen by where the qualifying first-person posts landed, and if
+any of them landed somewhere else that can be read as permalinks, that second place is the
+third route. If none did, say so — the third route does not exist for this run, and the
+user has two, not three. A blind verdict that invents a platform is the same error as a red
+verdict that invents a market.
 
 Never soften blind into red, and never let a blind run's zero counts appear as evidence
 about the market. If the counts are reported at all, mark them unmeasured.
@@ -279,5 +313,6 @@ finding the user can act on. "No prospects found" with no explanation is a faile
 
 ## Cost discipline
 
-The fit check is three queries. If it starts turning into ten, it has stopped being a
-check and become the run. Stop, take the lower verdict, and move on.
+The fit check is four queries — one control plus three probes. If it starts turning into
+ten, it has stopped being a check and become the run. Stop, take the lower verdict, and
+move on.
