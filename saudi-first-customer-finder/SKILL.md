@@ -30,7 +30,7 @@ Read these before acting. Do not improvise the vocabulary or the scoring.
 | --- | --- |
 | [references/market-profile.md](references/market-profile.md) | Anything else — the profile is derived first, once per job |
 | [references/fit-check.md](references/fit-check.md) | Any prospecting query — this runs second, right after the profile |
-| [references/platform-playbooks.md](references/platform-playbooks.md) | Touching X, Reddit, or LinkedIn |
+| [references/platform-playbooks.md](references/platform-playbooks.md) | Working any platform the market profile named |
 | [references/scope-verification.md](references/scope-verification.md) | Qualifying or rejecting any person |
 | [references/research-framework.md](references/research-framework.md) | Scoring anything |
 | [references/report-artifact.md](references/report-artifact.md) | Building the report |

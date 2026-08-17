@@ -41,14 +41,17 @@ optional.
 **Floor check, stated honestly.** `market-profile.md` requires, per bucket: 3+ phrase
 forms, 2+ distinct authors, and every form traced to a source post URL; overall, 12+ posts
 read and 8+ distinct authors. The material below clears the phrase-form-count floor by a
-wide margin in every bucket — it is a mature, field-accumulated word list. It clears
-**none** of the provenance floors: **zero post URLs and zero author counts are retained**
-for any form here, because this lexicon was written before `market-profile.md` existed and
-nobody recorded where each phrase came from. That is not a rounding error, it is the
-floor's entire point failing to be met. **A real run cannot reuse this list as-is** — every
-form below would need to be re-verified against a live post with a URL before it could
-satisfy the current method. Treat what follows as a description of vocabulary shape, not
-as pre-cleared evidence.
+wide margin in every bucket — it is a mature, field-accumulated word list, built up across
+real v1 runs that did read real posts (the two field-test observations later in this file
+are evidence of that). What it does **not** have is **retained per-form provenance**: no
+post URL or author was recorded against any individual phrase form, because this lexicon
+was written before `market-profile.md`'s citation requirement existed. Posts were read;
+which post produced which form was not written down. That is still a floor failure, not a
+rounding error — the post-count and author-count floors above are floors on **traceable**
+reading, and untraceable reading does not count. **A real run cannot reuse this list
+as-is** — every form below would need to be re-verified against a live post with a URL
+before it could satisfy the current method. Treat what follows as a description of
+vocabulary shape, not as pre-cleared evidence.
 
 #### Spelling variation — not optional
 
@@ -401,7 +404,7 @@ neutrally; never use it as the rejection reason on its own.
 ```
 Market profile — Arabic-first Saudi CV tool
 Market / language:   Saudi Arabia / Saudi dialectal Arabic (primary), MSA (formal), English (secondary)
-Phrasing sourced:    0 posts with retained URLs; ~140 phrase forms carried from a pre-method lexicon — BELOW FLOOR (no provenance)
+Phrasing sourced:    0 posts with retained URLs (posts were read; provenance was not recorded); ~140 phrase forms carried from a pre-method lexicon — BELOW FLOOR
 Incumbent ladder:    free/official: government employment platforms · informal service: service-office / WhatsApp CV writers · DIY: Excel/Word, copy-paste, ChatGPT prompt
 Audience writes on:  X — dialect complaints at volume, when the search path can see them
 Scope markers:       dialect (أبغى / وش / مره), civic reference (جدارات, أبشر), stated Saudi city as home
