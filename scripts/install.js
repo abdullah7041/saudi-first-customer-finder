@@ -4,10 +4,10 @@ const fs = require("fs");
 const os = require("os");
 const path = require("path");
 
-const SKILL_NAME = "saudi-first-customer-finder";
+const SKILL_NAME = "finding-first-customers";
 
 // Build artefacts that must never reach an installed skill directory.
-const SKIP_ENTRIES = new Set(["__pycache__", ".DS_Store", "node_modules", "outputs"]);
+const SKIP_ENTRIES = new Set(["__pycache__", ".DS_Store", "node_modules", "outputs", ".npmignore"]);
 const SKIP_EXTENSIONS = new Set([".pyc", ".pyo", ".log"]);
 
 const TARGETS = {
@@ -18,7 +18,7 @@ const TARGETS = {
 
 function usage() {
   console.log(`
-Saudi First Customer Finder — skill installer
+Finding First Customers — skill installer
 
 Usage:
   node scripts/install.js                        # ~/.claude/skills
@@ -157,7 +157,7 @@ function main() {
 
   console.log("");
   console.log("The skill is not loaded until the agent restarts. Restart it, then run:");
-  console.log(`  Use $${SKILL_NAME} in deep mode to find potential first customers in Saudi Arabia for https://example.com`);
+  console.log(`  Use $${SKILL_NAME} in deep mode to find potential first customers for https://example.com`);
 }
 
 try {

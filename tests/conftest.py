@@ -7,5 +7,5 @@ import sys
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
-SCRIPTS = REPO / "saudi-first-customer-finder" / "scripts"
+SCRIPTS = REPO / "finding-first-customers" / "scripts"
 sys.path.insert(0, str(SCRIPTS))
