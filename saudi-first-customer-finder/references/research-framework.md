@@ -1,32 +1,40 @@
 # Research and Qualification Framework
 
-Scoring, verification, and the product-intelligence extraction. Everything here is
-Saudi-scoped; do not substitute a generic prospecting rubric.
+Scoring, verification, and the product-intelligence extraction. This rubric is scoped to
+the market `references/market-profile.md` derived for this run — do not substitute a
+generic prospecting rubric, and do not substitute another market's rubric either. Every
+section below consumes one or more of the profile's six outputs by name; if an output is
+missing or empty, the section that depends on it is incomplete, not optional.
 
 ## Sequence
 
 ```
-brief → query plan → search → identity gate → link verification → score → dedupe
+brief → query plan → search → scope gate → link verification → score → dedupe
       → patterns → product intelligence → report
 ```
 
-The identity gate comes **before** scoring. Do not spend effort scoring someone who will
-be rejected on identity — and never score first and then rationalize the identity.
+The scope gate comes **before** scoring. Do not spend effort scoring someone who will be
+rejected on scope — and never score first and then rationalize the scope match.
 
-## The Saudi product brief
+## The product brief
 
 Before any searching, write:
 
 - product and promised outcome
-- primary Saudi ICP and one adjacent Saudi ICP
+- primary in-market ICP and one adjacent ICP
 - the urgent job to be done
-- **the Arabic complaint phrase for the problem** — what a Saudi person types when
-  annoyed by it, not the marketing term
-- current workaround (Excel, WhatsApp, a friend, a service office, ChatGPT)
+- **the pain-bucket phrase for the problem** — `market-profile.md`'s **local phrasing**
+  output, pain bucket: what a person in this market types when annoyed by it, not the
+  marketing term
+- current workaround — `market-profile.md`'s **incumbent ladder**, DIY rung
 - adoption trigger
-- Saudi-specific constraints: Arabic-language requirement, payment methods (mada, Apple
-  Pay, tabby/tamara), national-ID or Nafath dependency, sector regulation, Saudization
-  rules, gender-specific context where legitimately relevant to the product
+- market-specific constraints, informed by the profile's **market and language** and
+  **incumbent ladder** outputs — a language or script requirement, payment methods, a
+  national-identity or government-platform dependency, sector regulation, a localisation
+  or workforce-nationalization rule, gender-specific context where legitimately relevant
+  to the product. These are examples of the *category* of constraint to look for, not a
+  fixed checklist — a different market will surface different specific entries. A worked
+  set of concrete entries for one market is in `examples/saudi.md`.
 - disqualifiers
 
 If the brief cannot reject a weak match, keep working on it.
@@ -60,17 +68,21 @@ score = scope_match/5*20
 - `link_verified != true` → **dropped entirely.** Not logged as a prospect, not shown.
 - `pain_strength < 2` → not a prospect. ICP membership without evidenced pain is a
   demographic, not a signal.
-- No Arabic verbatim (for an Arabic-language source) → not shippable. Go back and get it.
+- No source-language verbatim (for a non-English source) → not shippable. Go back and get
+  it.
 
 ### Bands
 
-- **80–100** — strong Saudi first-customer candidate
+- **80–100** — strong first-customer candidate for this market
 - **65–79** — promising, validate quickly
 - **55–64** — plausible, a material signal is missing; include only in `deep` mode and
   label the gap
 - **Below 55** — excluded from the primary shortlist
 
 ### Scope match rubric
+
+Scored against `market-profile.md`'s **scope markers** output — see
+`references/scope-verification.md` for the tier definitions this rubric mirrors.
 
 | Score | Meaning |
 | --- | --- |
@@ -112,7 +124,7 @@ surviving prospect:
 
 1. Re-open the source URL.
 2. Confirm the page loads publicly and is not deleted, private, or removed.
-3. Confirm the quoted Arabic text appears on that page, character for character.
+3. Confirm the quoted source-language text appears on that page, character for character.
 4. Confirm the date matches what was recorded.
 5. Set `link_verified: true` and `verified_at` to today's date.
 
@@ -127,44 +139,50 @@ For every prospect record:
 - platform and source type
 - source title and URL
 - visible publication date, or "date unavailable"
-- **original Arabic verbatim** plus faithful English translation
+- **original source-language verbatim** plus faithful English translation
 - concise pain or timing signal in English
 - what was observed versus what was inferred — keep these separate
-- identity tier, markers, contradictions
+- scope tier, markers, contradictions
 - six-dimension score breakdown
 - freshness warning where relevant
 
 ## Product intelligence extraction
 
-Run this over the **entire** signal corpus — including rejected candidates. A
-non-Saudi's complaint is not a Saudi prospect, but it is still evidence about the
-problem.
+Run this over the **entire** signal corpus — including rejected candidates. A candidate
+rejected on scope is not an in-market prospect, but their complaint is still evidence
+about the problem.
 
 ### Feature gaps
 
 For each recurring unmet need:
 
-- title, count of independent signals, insight, at least one Arabic quote with source
+- title, count of independent signals, insight, at least one source-language quote with
+  source
 - distinguish "the product doesn't do this" from "the product does this but nobody knows"
   — those need opposite responses (build vs. message)
 - rank by count, then by pain strength of the underlying signals
 
 ### Vocabulary
 
-The words customers use, for landing pages, ads, and in-product copy:
+The words customers use, for landing pages, ads, and in-product copy. Draw on
+`market-profile.md`'s **local phrasing** output as the starting point, then add anything
+new that turned up during scoring and verification:
 
-- the Arabic term for the **problem** (what they complain about)
-- the Arabic term for the **product category** (what they'd search for)
-- the Arabic term for the **outcome** (what they say they want)
+- the local-language term for the **problem** (what they complain about)
+- the local-language term for the **product category** (what they'd search for)
+- the local-language term for the **outcome** (what they say they want)
 - the words used for the **workaround** they'd be abandoning
-- terms to avoid: formal MSA phrasing that no one actually types, and any translated
-  English that reads foreign
+- terms to avoid: an overly formal register that no one actually types, and any
+  translated English that reads foreign
 
-Record term, count, and where it appeared. This section replaces guessing at Arabic copy.
+Record term, count, and where it appeared. This section replaces guessing at landing-page
+copy in the market's language.
 
 ### Channel map
 
-Where the demand concentrates:
+Where the demand concentrates — this should mostly confirm `market-profile.md`'s **where
+the audience writes** output; a channel map that contradicts it is worth flagging
+explicitly rather than silently overriding:
 
 - platform, specific location (hashtag, subreddit, account, community)
 - observed activity level and recency
@@ -173,20 +191,20 @@ Where the demand concentrates:
 
 ### Trust objections
 
-What stops Saudi users from adopting this category. Recurring themes across most
-verticals:
+What stops people in this market from adopting this category. Start from
+`market-profile.md`'s **trust objections** output, then confirm and extend it with what
+scoring and verification actually surfaced. Recurring themes across most verticals:
 
 - price and subscription resentment
 - scam fatigue around paid digital services
-- doubt that a tool genuinely works in Arabic rather than being an English tool with a
-  translated UI
+- doubt that a tool genuinely works in the local language rather than being a foreign tool
+  with a translated interface
 - data privacy, especially for national ID, salary, and personal documents
-- payment friction — cards, mada support, local billing
+- payment friction — cards, local payment-method support, local billing
 - preference for a human intermediary (a service office, a friend, a specialist) over
   software
 
-Each objection needs a count and a quote. Do not include an objection you did not
-observe.
+Each objection needs a count and a quote. Do not include an objection you did not observe.
 
 ## Patterns
 
@@ -204,8 +222,9 @@ Top three prospects only. Shape:
 3. one sentence on what the product does
 4. one low-friction question
 
-Under 60 words in Arabic. Match platform register: X is casual and can use dialect,
-LinkedIn is formal MSA, Reddit is plain and direct. Never claim familiarity, never
+Under 60 words, in the market's language. Match platform register: fast consumer
+platforms are casual and can use informal register, professional networks are formal,
+long-form discussion platforms are plain and direct. Never claim familiarity, never
 promise an outcome, never mention anything the person did not post publicly.
 
 Mark every opener as an unsent draft.
@@ -214,10 +233,11 @@ Mark every opener as an unsent draft.
 
 Report these plainly rather than padding the shortlist:
 
-- Fewer than five verified Saudi prospects found → the demand may not be publicly visible
-  yet, or the queries were wrong. Say which you believe and why.
-- Shortlist is entirely `likely` tier with no `confirmed` → the identity evidence is weak
+- Fewer than five verified in-market prospects found → the demand may not be publicly
+  visible yet, or the queries were wrong. Say which you believe and why.
+- Shortlist is entirely `likely` tier with no `confirmed` → the scope evidence is weak
 - One platform supplied everything → the sample is platform-shaped, not market-shaped
 - All signals older than six months → the pain may be resolved, or the market moved
-- High rejection rate on identity → the visible demand for this product in KSA is
-  expat-driven, which is itself a finding worth acting on
+- High rejection rate on scope → the visible demand for this product in this market is
+  driven by neighbouring-market or diaspora voices, which is itself a finding worth acting
+  on

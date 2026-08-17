@@ -36,6 +36,24 @@ This table predates the "cite the page each fact came from" requirement in
 gap is a limitation of the historical material, not a demonstration that citation is
 optional.
 
+#### Market-specific constraints (research-framework.md's product-brief step)
+
+`references/research-framework.md` asks for market-specific constraints as *examples of a
+category*, not a fixed checklist. For this market, concrete entries look like:
+
+- **Language/script requirement** — Arabic-language output, not just an Arabic interface
+  (see Trust objections, below)
+- **Payment methods** — `مدى` (mada) as the dominant local card rail, Apple Pay, and the
+  buy-now-pay-later products `تمارا` and `تابي`
+- **National-identity / government-platform dependency** — `نافذ`, `أبشر`, or `مقيم`
+  integration, where the product needs to confirm who someone is
+- **Sector regulation** — depends heavily on category; employment-adjacent products
+  intersect `السعودة` (Saudization) quotas and reporting
+- **Localisation / workforce-nationalization rule** — Saudization (`السعودة`, `نطاقات`)
+  specifically, for any product touching hiring or headcount
+- **Gender-specific context** — relevant only where the product genuinely differs by it
+  (e.g. gender-segregated service delivery); not a default assumption for every product
+
 ### 2. Local phrasing
 
 **Floor check, stated honestly.** `market-profile.md` requires, per bucket: 3+ phrase

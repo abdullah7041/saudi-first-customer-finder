@@ -32,7 +32,7 @@ Read these before acting. Do not improvise the vocabulary or the scoring.
 | [references/fit-check.md](references/fit-check.md) | Any prospecting query — this runs second, right after the profile |
 | [references/platform-playbooks.md](references/platform-playbooks.md) | Working any platform the market profile named |
 | [references/scope-verification.md](references/scope-verification.md) | Qualifying or rejecting any person |
-| [references/research-framework.md](references/research-framework.md) | Scoring anything |
+| [references/research-framework.md](references/research-framework.md) | Scoring, verifying links, or extracting product intelligence from anything |
 | [references/report-artifact.md](references/report-artifact.md) | Building the report |
 | [examples/saudi.md](examples/saudi.md) | Optional — a worked example of the market profile, filled in for one specific market |
 
