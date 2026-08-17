@@ -98,8 +98,9 @@ market profile from the product's own site and a handful of real search results:
 market and the language its buyers actually write in, real phrase forms for demand, pain,
 workaround, and switching (never a translation of the English brief), a three-rung ladder
 of how the problem is solved today, the one platform where the audience writes in
-searchable text, and the observable markers that place someone inside the market rather
-than a neighbour. That derivation is capped at five queries and is finished before any
+searchable text, the observable markers that place someone inside the market rather
+than a neighbour, and the trust objections that market raises against this category.
+That derivation is capped at five queries and is finished before any
 prospecting query is spent — every later step, including the pre-flight fit check and the
 scope filter, consumes its output by name. See
 `finding-first-customers/references/market-profile.md` for the method, and
@@ -107,15 +108,15 @@ scope filter, consumes its output by name. See
 
 ## Modes
 
-| Mode | Prospects | Min queries | Use for |
+| Mode | Prospects | Min queries | Notes |
 | --- | --- | --- | --- |
-| `fit-check` | none | 4 | Pre-flight only — is this category even searchable, and is the platform even reachable |
-| `quick` | 5 | 20 | Fast sanity check |
-| `standard` | 10 | 35 | Balanced run |
-| `deep` | 20+ | 60 | **Default.** Full local-language fan-out and pattern analysis |
-| `research-only` | none | 60 | Product intelligence only — no shortlist, no individuals named |
-| `b2b` | 12 | 40 | In-market companies and business triggers |
-| `consumer` | 20+ | 60 | Individuals only, consumer-platform-weighted, dialect-heavy |
+| `fit-check` | none | 4 | The pre-flight check on its own — one control plus three probes. Answers "is this category even searchable, and can I even see the platform" in about a minute |
+| `quick` | up to 5 | 20 | Sanity check or re-run against an existing baseline |
+| `standard` | up to 10 | 35 | Balanced run across all three platforms |
+| `deep` | 20+ | 60 | **Default.** Full spelling and inflection variation, full pattern and product-intelligence analysis |
+| `research-only` | none | 60 | Product intelligence without a shortlist. Openers removed, no individuals named. Where a red or blind fit check lands — run the source ladder in `references/fit-check.md` |
+| `b2b` | up to 12 | 40 | In-market companies and public business triggers; professional-network-weighted |
+| `consumer` | 20+ | 60 | Individuals only; consumer-platform-weighted, dialect-heavy |
 
 ## What the report contains
 

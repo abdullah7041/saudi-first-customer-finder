@@ -245,7 +245,7 @@ Order:
 2. **ICP** — buyer, job, trigger, disqualifiers
 3. **Top prospect** — strongest verified candidate and why now
 4. **Prospect shortlist** — verbatim quote, translation, verified link, scores, stage
-5. **Rejection log** — who was excluded and why
+5. **Rejection log** — counts by reason and platform, no identities
 6. **Repeated patterns** — pains and triggers across prospects
 7. **Competitive landscape** — who already sells to this customer, and at what price
 8. **Product intelligence** — feature gaps, vocabulary, channels, objections
