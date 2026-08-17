@@ -208,9 +208,14 @@ def render_prospect(prospect: dict[str, Any], index: int) -> str:
     opener_html = ""
     if opener:
         note = esc(prospect.get("opener_note", "Unsent draft — review before using."))
+        opener_direction = base_direction(opener)
+        opener_lang = str(prospect.get("opener_lang") or "").strip()
+        if not opener_lang and opener_direction == "rtl":
+            opener_lang = "ar"
+        opener_lang_attr = f' lang="{esc(opener_lang)}"' if opener_lang else ""
         opener_html = (
             f'<blockquote><span>Suggested opener &middot; unsent draft</span>'
-            f'<p dir="rtl" lang="ar">{esc(opener)}</p><small>{note}</small></blockquote>'
+            f'<p dir="{opener_direction}"{opener_lang_attr}>{esc(opener)}</p><small>{note}</small></blockquote>'
         )
 
     return f"""

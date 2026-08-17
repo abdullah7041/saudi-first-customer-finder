@@ -15,7 +15,8 @@ data. Return a clickable absolute file link.
 
 Open the HTML and confirm:
 
-- Arabic quote blocks render right-to-left, not reversed or mirrored
+- Quote blocks render in the source language's own direction — right-to-left for
+  Arabic, left-to-right for Latin-script languages — not reversed or mirrored
 - every prospect card has a working source link
 - the rejection log has entries — an empty one means the identity filter never ran
 - the product intelligence section is populated with counts and quotes
