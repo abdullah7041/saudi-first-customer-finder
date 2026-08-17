@@ -224,7 +224,9 @@ Verdict:          GREEN — running deep | AMBER — running deep, expect a shor
 On **PATH-B BLIND**, do not issue a market verdict at all. Say that the search path
 cannot reach recent posts, name the platform, and hand the user the three routes: a
 logged-in session (Path A), `research-only` over the source ladder below, or a different
-platform where the audience actually writes in public text.
+platform where the audience actually writes in public text — and for that third route go
+back to **where the audience writes**, which already named the runner-up and any platform
+it recorded as a blind spot. Do not guess a new platform here.
 
 Never soften blind into red, and never let a blind run's zero counts appear as evidence
 about the market. If the counts are reported at all, mark them unmeasured.
