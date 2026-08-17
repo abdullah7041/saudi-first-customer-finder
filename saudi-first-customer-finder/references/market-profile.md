@@ -22,17 +22,44 @@ The reason this fits in five is that **most of the work is reading the returned 
 issuing more queries.** One good result set feeds four of the six outputs at once. If you
 find yourself on query eight, you have started the run instead of preparing it.
 
-| Query | Primary target | Also harvested from the same results |
-| --- | --- | --- |
-| 1 | Local phrasing — explicit demand | Where the audience writes; scope markers |
-| 2 | Local phrasing — pain | Scope markers; trust objections |
-| 3 | Local phrasing — workaround | Incumbent ladder (DIY rung); scope markers |
-| 4 | Local phrasing — switching / competitor | Incumbent ladder (free/official + informal rungs); trust objections |
-| 5 | Local phrasing — timing trigger | Where the audience writes |
+### What counts against the five
 
-Nothing in the table is a rule about which query goes first. It is an accounting of where
-each output's evidence comes from, so that a missing output is traceable to a query that
-was never read properly rather than to a query that was never run.
+A **query** is a search: you hand a search tool a phrase and it hands back a result set you
+did not know the contents of. Those are the scarce thing, because each one is a guess about
+vocabulary and a guess that misses costs you a fifth of the budget.
+
+**Opening a named page does not count.** Once a result set has given you a name — an
+institution, an incumbent product, an app listing, a competitor site — reading that page is
+retrieval, not search. You already know what is there; you are confirming a fact, not
+fishing for one. So the free/official rung's own site, and the localized app-store review
+pages of incumbents you have already named, are unbudgeted. Read as many as the outputs
+need.
+
+The rule in one line: **a search spends the budget, a lookup of something already named
+does not.** The reason for drawing it here rather than leaving it to judgement is that both
+readings of an unqualified "five" break the method — count every retrieval and you run out
+before the ladder, count none and the five-query discipline is decorative.
+
+Two guards, so this is not a loophole. A lookup must be reached from a name you already
+have; if you find yourself searching to discover which page to open, that is a query and it
+counts. And a lookup that turns into browsing — following links onward looking for material
+— has become a run. Open the page, take the fact, leave.
+
+### Where each output's evidence comes from
+
+| # | Retrieval | Counts against the five | Primary target | Also harvested |
+| --- | --- | --- | --- | --- |
+| 1 | Search | Yes | Local phrasing — explicit demand | Where the audience writes; scope markers |
+| 2 | Search | Yes | Local phrasing — pain | Scope markers; trust objections |
+| 3 | Search | Yes | Local phrasing — workaround | Incumbent ladder (DIY rung); scope markers |
+| 4 | Search | Yes | Local phrasing — switching / competitor | Incumbent ladder (free/official + informal rungs); trust objections |
+| 5 | Search | Yes | Local phrasing — timing trigger | Where the audience writes |
+| — | Named-page lookup | No | Incumbent ladder — confirming the free/official rung on the institution's own site | Trust objections |
+| — | Named-page lookup | No | Trust objections — localized app-store reviews of incumbents already named | Incumbent ladder |
+
+Nothing in the table is a rule about which retrieval goes first. It is an accounting of
+where each output's evidence comes from, so that a missing output is traceable to a result
+set that was never read properly rather than to a query that was never run.
 
 The six outputs below are named exactly as the rest of the skill refers to them. Each
 states **what to produce**, **where it comes from**, and **how to tell a good result from a
@@ -98,15 +125,50 @@ corpus again. So: vary the forms deliberately, and **state which variants you us
 profile. An unstated variant set cannot be reviewed, and a single-form search silently
 reports a market as quiet when it was only misspelled.
 
-**How to tell a good result from a bad one.** Pass: every recorded phrase form traces to a
-specific post URL, the forms come from more than one author, and at least two buckets have
-forms you would not have produced by translating the product brief. Any form with no
+**How to tell a good result from a bad one.** Pass, in three parts.
+
+*Provenance.* Every recorded phrase form traces to a specific post URL. Any form with no
 source post gets deleted — no exceptions, because that form is a translation wearing a
-disguise. Wrong answer: a clean, grammatical set of phrases that reads like the English
-brief rendered into the target language; or every form traced to one prolific author; or
-forms that appear only inside vendor ads, which is the phrasing sellers use to advertise,
-not the phrasing buyers use to complain. This check produces the `Phrasing sourced` line of
-the closing block: posts read, phrase forms recorded.
+disguise.
+
+*Floor.* This output replaces a shipped lexicon, so it needs a size, or two agents given
+the same product will hand back profiles that differ by an order of magnitude:
+
+| Floor | Value |
+| --- | --- |
+| Phrase forms per bucket | **3** |
+| Distinct authors per bucket | **2** |
+| Posts read across the whole profile | **12** |
+| Distinct authors across the whole profile | **8** |
+
+Three per bucket is not arbitrary: it is the same threshold the rest of this skill already
+uses for calling something real rather than incidental — three independent signals make a
+pattern, two are a coincidence, one is an anecdote. Two authors per bucket is the cheapest
+possible guard against the failure the next paragraph names. Eight distinct authors overall
+is the point past which the profile describes a market rather than a handful of people, and
+twelve posts is roughly what you must actually read to get there.
+
+None of these floors need another query. They are floors on **reading**, and a single
+result set usually clears several of them at once.
+
+*Novelty.* At least two buckets contain forms you would not have produced by translating
+the product brief. A profile that clears the floor but contains nothing surprising has
+measured your own translation, not the market.
+
+**Wrong answer:** a clean, grammatical set of phrases that reads like the English brief
+rendered into the target language; every form traced to one prolific author; or forms that
+appear only inside vendor ads, which is the phrasing sellers use to advertise, not the
+phrasing buyers use to complain.
+
+A bucket that genuinely cannot reach its floor is **recorded as under-filled with its real
+count** — never padded to three, and never quietly dropped. Under-filling is information:
+if three or more of the five buckets come in under floor, the honest reading is that the
+platform, the category framing, or the market itself is quiet, and that belongs in the
+profile as a stated finding for whatever runs next. Padding it destroys exactly that signal.
+
+This check produces the `Phrasing sourced` line of the closing block: posts read, phrase
+forms recorded. Those two numbers are checked against the table above, and a line below
+floor is stated as below floor.
 
 ---
 
@@ -124,7 +186,8 @@ this product:
 
 **Where it comes from.** Mostly the workaround and switching query results, read for what
 people say they already do and already pay. The free/official rung often has to be
-confirmed by looking at the institution's own site once you have a name for it.
+confirmed by looking at the institution's own site once you have a name for it — that is a
+named-page lookup and does not count against the five.
 
 **Why three rungs and not a competitor list.** The ladder sets the **price anchor** the
 product is compared against. A buyer does not compare your price to your nearest funded
@@ -184,11 +247,24 @@ rather than adjacent to it, and their counterparts that indicate a neighbouring 
 - Health, including mental health and disability
 - Financial hardship
 - Political view or affiliation
+- Immigration or residency status, and legal status of any kind
 - Nationality used as a slur, or any pejorative framing of origin
 
 These are not stylistic preferences. Targeting on them is out of bounds for this skill
 regardless of how visible the signal is, and a marker being publicly posted does not move
 it into the permitted column.
+
+Immigration and residency status deserves its own warning **here specifically**, because
+this section is where it gets smuggled in. The permitted list includes self-described
+location and civic references, and the guidance below says civic markers are often the ones
+that distinguish neighbouring markets — which quietly invites "does this person hold local
+status?" as a convenient shortcut. It is not one. The question this section answers is
+*where does this person write from*, never *what is this person's status where they write
+from*. Someone who lives, works, spends and posts in the market is inside the scope of a
+market study, whatever paperwork they hold; a residency-status test would reject them while
+a location test correctly keeps them. If a residency marker is the only thing separating
+your kept posts from your discarded ones, the scope markers have not been derived yet —
+go back to the result sets and find a permitted one.
 
 **Where it comes from.** The result sets you already have, read for what distinguishes the
 posts you kept from the posts you discarded. When two neighbouring markets share a language,
@@ -212,8 +288,10 @@ category. Each with a count and a quote.
 
 **Where it comes from.** Localized app-store reviews of the incumbents you named on the
 ladder — first-person, dated, public, and available without a logged-in session — plus the
-switching and pain result sets. Recurring themes across most markets and verticals, offered
-as places to look rather than as answers:
+switching and pain result sets. Because the incumbents are already named by the time you get
+here, opening their listings is a named-page lookup and does not count against the five.
+Recurring themes across most markets and verticals, offered as places to look rather than as
+answers:
 
 - Price and subscription resentment
 - Scam fatigue around paid digital services
