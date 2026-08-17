@@ -1,0 +1,82 @@
+{
+  "title": "Sample Market Signals",
+  "product": "Example product",
+  "product_url": "https://example.com",
+  "target_customer": "Example target customer",
+  "mode": "deep",
+  "generated_at": "2026-08-17",
+  "verdict": "Sample verdict for the end-to-end smoke test.",
+
+  "icp": {
+    "buyer": "Example buyer",
+    "job": "Example job to be done",
+    "trigger": "Example trigger",
+    "disqualifiers": ["Example disqualifier"]
+  },
+
+  "stats": {
+    "candidates_examined": 3,
+    "rejected_on_identity": 2,
+    "dropped_at_link_verification": 0
+  },
+
+  "prospects": [
+    {
+      "name": "public handle or display name",
+      "platform": "X",
+      "type": "Public prospect",
+      "stage": "High intent",
+      "score": 82,
+      "scope_tier": "confirmed",
+      "saudi_markers": ["dialect: أبغى", "location: الرياض"],
+      "quote_ar": "أبغى أداة تساعدني في هذا",
+      "quote_en": "I want a tool to help me with this.",
+      "pain_signal": "Sample pain signal.",
+      "why_fit": "Sample fit reason.",
+      "why_now": "Sample timing reason.",
+      "suggested_channel": "Public reply",
+      "opener_ar": "شفت منشورك...",
+      "opener_note": "Unsent draft.",
+      "evidence": "Sample evidence.",
+      "source_title": "Sample source",
+      "source_url": "https://x.com/example/status/1",
+      "source_type": "Public post",
+      "signal_date": "2026-08-10",
+      "link_verified": true,
+      "verified_at": "2026-08-17",
+      "dimensions": {
+        "scope_match": 4,
+        "pain_strength": 4,
+        "product_fit": 4,
+        "timing": 5,
+        "reachability": 4,
+        "evidence_quality": 4
+      }
+    }
+  ],
+
+  "rejected": [
+    {
+      "name": "@rejected_one",
+      "source_url": "https://x.com/rejected_one/status/2",
+      "platform": "Reddit",
+      "reason": "Neighbouring-market language markers, no target-market context"
+    },
+    {
+      "name": "@rejected_two",
+      "source_url": "https://x.com/rejected_two/status/3",
+      "platform": "X",
+      "reason": "Out of market scope"
+    }
+  ],
+
+  "patterns": [],
+  "product_intelligence": {},
+  "plan": {
+    "angle": "Sample angle.",
+    "first_step": "Sample first step.",
+    "follow_up": "Sample follow-up.",
+    "success": "Sample success signal."
+  },
+  "limits": ["Sample limit."]
+}
