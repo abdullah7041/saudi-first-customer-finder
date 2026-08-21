@@ -1,0 +1,4 @@
+interface:
+  display_name: "Finding First Customers"
+  short_description: "Paste a link, get verified first customers from public local-language signals"
+  default_prompt: "Use $finding-first-customers on this app: [paste URL]"

@@ -1,7 +1,7 @@
 {
-  "name": "saudi-first-customer-finder-skill",
-  "version": "1.1.0",
-  "description": "An AI coding-agent skill that finds evidence-backed potential first customers inside Saudi Arabia from public Arabic and English signals on X, Reddit, and LinkedIn.",
+  "name": "finding-first-customers-skill",
+  "version": "2.0.0",
+  "description": "An AI coding-agent skill that finds evidence-backed potential first customers inside a specific target market from public local-language and English signals on X, Reddit, and LinkedIn.",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -12,28 +12,23 @@
     "url": "https://github.com/abdullah7041/saudi-first-customer-finder/issues"
   },
   "bin": {
-    "saudi-first-customer-finder-skill": "scripts/install.js"
+    "finding-first-customers-skill": "scripts/install.js"
   },
   "files": [
-    "saudi-first-customer-finder",
+    "finding-first-customers",
     "scripts/install.js",
     "README.md",
     "LICENSE"
   ],
   "keywords": [
-    "saudi-arabia",
-    "ksa",
-    "arabic",
-    "codex",
-    "claude",
-    "skill",
-    "agent-skill",
     "customer-discovery",
     "early-adopters",
-    "prospecting",
     "market-research",
-    "startup",
-    "vision-2030"
+    "prospecting",
+    "agent-skill",
+    "codex",
+    "claude",
+    "skill"
   ],
   "publishConfig": {
     "access": "public"
