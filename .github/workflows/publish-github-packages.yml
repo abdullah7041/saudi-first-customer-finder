@@ -1,0 +1,43 @@
+name: Publish to GitHub Packages
+
+# npmjs.org is the real distribution channel for this skill: GitHub Packages
+# requires an authenticated token to install from, even for public packages, so
+# this mirror exists for visibility rather than for consumers to install from.
+#
+# The package is published scoped (@OWNER/name) because GitHub Packages requires
+# the scope to match the repository owner. The scope is applied at publish time
+# only — package.json on disk keeps the unscoped name that npmjs.org uses.
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@${{ github.repository_owner }}'
+
+      - name: Verify the payload before publishing
+        run: |
+          python -m pytest tests/ -v
+          npm pack --dry-run
+
+      - name: Apply the owner scope for GitHub Packages only
+        run: npm pkg set name="@${{ github.repository_owner }}/finding-first-customers-skill"
+
+      - name: Publish
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
